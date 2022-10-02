@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
 import getCalender from './useCalender.helper';
-import type { CalenderBlock } from './useCalender.helper';
+import type { Calender } from './useCalender.helper';
 
 function useCalender(initialYear: number, initialMonth: number) {
-  const [calender, setCalender] = useState<CalenderBlock[][]>(() =>
+  const [calender, setCalender] = useState<Calender>(() =>
     getCalender(initialYear, initialMonth)
   );
 

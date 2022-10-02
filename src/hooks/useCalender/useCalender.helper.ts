@@ -1,11 +1,40 @@
+import { v4 } from 'uuid';
+
 export interface CalenderBlock {
   year: number;
   month: number;
   date: number;
 }
 
+export interface Calender {
+  [key: string]: CalenderBlock[];
+}
+
 const ROW_LENGTH = 6;
 const COL_LENGTH = 7;
+
+export function getDate(today: number): CalenderBlock {
+  const date = new Date(today);
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth(),
+    date: date.getDate(),
+  };
+}
+
+export function formatDate(month: number, date: number) {
+  return `${month + 1}월 ${date}일`;
+}
+
+function formatCalender(calender: CalenderBlock[][]): Calender {
+  const calenderWithKeys: Calender = {};
+
+  calender.forEach((row) => {
+    calenderWithKeys[v4()] = [...row];
+  });
+
+  return calenderWithKeys;
+}
 
 function fillCalender(year: number, month: number, offset: number) {
   const calender: CalenderBlock[][] = Array.from(
@@ -48,7 +77,8 @@ function getCalender(year: number, month: number) {
 
   const day = new Date(year, month, 1).getDay();
 
-  return fillCalender(year, month, day);
+  const calender = fillCalender(year, month, day);
+  return formatCalender(calender);
 }
 
 export default getCalender;
