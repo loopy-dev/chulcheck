@@ -1,25 +1,10 @@
-import { useState } from 'react';
 import './App.css';
-import { CalenderInner } from './components/Calender';
-import useCalender from './hooks/useCalender';
+import { Calender } from './components/Calender';
 
-const App = () => {
-  const [date, setDate] = useState(() => {
-    const today = new Date(Date.now());
-    return {
-      year: today.getFullYear(),
-      month: today.getMonth(),
-      date: today.getDate(),
-    };
-  });
-
-  const { calender, fillCalender } = useCalender(date.year, date.month);
-
-  return (
-    <div className="App">
-      <CalenderInner calender={calender} />
-    </div>
-  );
-};
+const App = () => (
+  <div className="App">
+    <Calender />
+  </div>
+);
 
 export default App;

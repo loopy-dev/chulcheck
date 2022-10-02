@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { formatDate } from '../../hooks/useCalender/useCalender.helper';
+import { formatMonthDate } from '../../utils/dateFormat';
 import type { Calender } from '../../hooks/useCalender/useCalender.helper';
 
 interface Props {
@@ -12,7 +12,7 @@ const CalenderInner = ({ calender }: Props) => (
       <CalenderRow key={key}>
         {row.map((el) => (
           <CalenderColumn key={`${el.year}${el.month}${el.date}`}>
-            {formatDate(el.month, el.date)}
+            {formatMonthDate(el.month, el.date)}
           </CalenderColumn>
         ))}
       </CalenderRow>

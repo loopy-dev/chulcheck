@@ -13,17 +13,13 @@ export interface Calender {
 const ROW_LENGTH = 6;
 const COL_LENGTH = 7;
 
-export function getDate(today: number): CalenderBlock {
+export function getDate(today: number | string): CalenderBlock {
   const date = new Date(today);
   return {
     year: date.getFullYear(),
     month: date.getMonth(),
     date: date.getDate(),
   };
-}
-
-export function formatDate(month: number, date: number) {
-  return `${month + 1}월 ${date}일`;
 }
 
 function formatCalender(calender: CalenderBlock[][]): Calender {
@@ -67,12 +63,16 @@ function fillCalender(year: number, month: number, offset: number) {
  * @returns 6 * 7 크기의 달력
  */
 function getCalender(year: number, month: number) {
-  if (year < 0) {
-    throw new Error('year has to greater than 0.');
+  if (year < 1980) {
+    throw new Error('year must be greater than 1980.');
   }
 
   if (month < 0) {
-    throw new Error('month has to greater than 0.');
+    throw new Error('month must be greater than or equal to 0.');
+  }
+
+  if (month >= 12) {
+    throw new Error('month must be lower than 12.');
   }
 
   const day = new Date(year, month, 1).getDay();
