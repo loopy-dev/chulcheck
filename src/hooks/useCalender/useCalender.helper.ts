@@ -1,11 +1,36 @@
+import { v4 } from 'uuid';
+
 export interface CalenderBlock {
   year: number;
   month: number;
   date: number;
 }
 
+export interface Calender {
+  [key: string]: CalenderBlock[];
+}
+
 const ROW_LENGTH = 6;
 const COL_LENGTH = 7;
+
+export function getDate(today: number | string): CalenderBlock {
+  const date = new Date(today);
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth(),
+    date: date.getDate(),
+  };
+}
+
+function formatCalender(calender: CalenderBlock[][]): Calender {
+  const calenderWithKeys: Calender = {};
+
+  calender.forEach((row) => {
+    calenderWithKeys[v4()] = [...row];
+  });
+
+  return calenderWithKeys;
+}
 
 function fillCalender(year: number, month: number, offset: number) {
   const calender: CalenderBlock[][] = Array.from(
@@ -38,17 +63,22 @@ function fillCalender(year: number, month: number, offset: number) {
  * @returns 6 * 7 크기의 달력
  */
 function getCalender(year: number, month: number) {
-  if (year < 0) {
-    throw new Error('year has to greater than 0.');
+  if (year < 1980) {
+    throw new Error('year must be greater than 1980.');
   }
 
   if (month < 0) {
-    throw new Error('month has to greater than 0.');
+    throw new Error('month must be greater than or equal to 0.');
+  }
+
+  if (month >= 12) {
+    throw new Error('month must be lower than 12.');
   }
 
   const day = new Date(year, month, 1).getDay();
 
-  return fillCalender(year, month, day);
+  const calender = fillCalender(year, month, day);
+  return formatCalender(calender);
 }
 
 export default getCalender;
