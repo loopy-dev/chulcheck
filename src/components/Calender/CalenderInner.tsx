@@ -1,36 +1,54 @@
 import styled from 'styled-components';
 import { formatMonthDate } from '../../utils/dateFormat';
-import type { Calender } from '../../hooks/useCalender/useCalender.helper';
+import type Calender from '../../factory/Calender/Caldender';
 
 interface Props {
   calender: Calender;
-  month: number;
+  onClickItem?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const CalenderInner = ({ calender, month }: Props) => (
-  <CalenderMatrix>
-    {Object.entries(calender).map(([key, row]) => (
-      <CalenderRow key={key}>
-        {row.map((el, index) => (
-          <CalenderColumn
-            key={`${el.year}${el.month}${el.date}`}
-            isWeekend={index === 0 || index === 6}
-          >
-            <CalenderBlockTitle>
-              <CalenderDate
-                isCurrentDate={new Date(Date.now()).getDate() === el.date}
-                isCurrentMonth={new Date(Date.now()).getMonth() === el.month}
-                isUserSetMonth={month === el.month}
-              >
-                {el.date === 1 ? formatMonthDate(el.month, el.date) : el.date}
-              </CalenderDate>
-            </CalenderBlockTitle>
-          </CalenderColumn>
+const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+const CalenderInner = ({ calender, onClickItem }: Props) => {
+  const date = new Date(Date.now());
+
+  return (
+    <Month>
+      <Row>
+        {days.map((day, index) => (
+          <Title key={day} isWeekend={index === 0 || index === 6}>
+            {day}
+          </Title>
         ))}
-      </CalenderRow>
-    ))}
-  </CalenderMatrix>
-);
+      </Row>
+      {calender.calender.map(({ id, week }) => (
+        <Row key={id}>
+          {week.map((day, index) => (
+            <Column
+              key={day.id}
+              isWeekend={index === 0 || index === 6}
+              onClick={onClickItem}
+            >
+              <ColumnHeader>
+                <CalenderDate
+                  isCurrentDate={date.getDate() === day.date}
+                  isCurrentMonth={date.getMonth() === day.month}
+                  isCurrentYear={date.getFullYear() === day.year}
+                  isUserSetMonth={calender.month === day.month}
+                >
+                  {day.date === 1
+                    ? formatMonthDate(day.month, day.date)
+                    : day.date}
+                </CalenderDate>
+              </ColumnHeader>
+            </Column>
+          ))}
+          {/** TODO: 여기에 데이터 들어가야 함 */}
+        </Row>
+      ))}
+    </Month>
+  );
+};
 
 export default CalenderInner;
 
@@ -41,26 +59,38 @@ interface CalenderColumnProps {
 interface CalenderDateProps {
   isUserSetMonth: boolean;
   isCurrentMonth: boolean;
+  isCurrentYear: boolean;
   isCurrentDate: boolean;
 }
 
-const CalenderMatrix = styled.div`
+const Title = styled.div<CalenderColumnProps>`
+  position: relative;
+  border-right: 1px solid rgb(233, 233, 231);
+  border-bottom: 1px solid rgb(233, 233, 231);
+  padding: 0.5rem;
+  background-color: ${({ isWeekend }) =>
+    isWeekend ? 'rgb(251, 251, 250)' : '#ffffff'};
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+const Month = styled.div`
   display: grid;
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: auto repeat(6, 1fr);
   grid-auto-rows: 1fr;
   border-top: 1px solid rgb(233, 233, 231);
   border-left: 1px solid rgb(233, 233, 231);
   border-radius: 2px;
 `;
 
-const CalenderRow = styled.div`
+const Row = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-auto-columns: 1fr;
   position: relative;
 `;
 
-const CalenderColumn = styled.div<CalenderColumnProps>`
+const Column = styled.div<CalenderColumnProps>`
   position: relative;
   height: 100px;
   padding: 0.5rem;
@@ -76,7 +106,7 @@ const CalenderColumn = styled.div<CalenderColumnProps>`
   }
 `;
 
-const CalenderBlockTitle = styled.div`
+const ColumnHeader = styled.div`
   display: flex;
   // TODO: 나중에 지울 것
   justify-content: flex-end;
@@ -89,8 +119,13 @@ const CalenderDate = styled.span<CalenderDateProps>`
   min-height: 22px;
   border-radius: 50%;
 
-  color: ${({ isCurrentMonth, isCurrentDate, isUserSetMonth }) => {
-    if (isCurrentMonth && isCurrentDate) {
+  color: ${({
+    isCurrentYear,
+    isCurrentMonth,
+    isCurrentDate,
+    isUserSetMonth,
+  }) => {
+    if (isCurrentYear && isCurrentMonth && isCurrentDate) {
       return `#ffffff`;
     }
 
@@ -101,8 +136,8 @@ const CalenderDate = styled.span<CalenderDateProps>`
     return ``;
   }};
 
-  background-color: ${({ isCurrentMonth, isCurrentDate }) =>
-    isCurrentMonth && isCurrentDate ? `rgb(235, 87, 87)` : ''};
+  background-color: ${({ isCurrentYear, isCurrentMonth, isCurrentDate }) =>
+    isCurrentYear && isCurrentMonth && isCurrentDate ? `rgb(235, 87, 87)` : ''};
 
   font-size: 14px;
 `;

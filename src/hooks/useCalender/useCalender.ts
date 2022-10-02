@@ -1,17 +1,11 @@
 import { useCallback, useState } from 'react';
-import getCalender, { getDate } from './useCalender.helper';
-import type { Calender as CalenderMatrix } from './useCalender.helper';
-
-interface Calender {
-  year: number;
-  month: number;
-  calender: CalenderMatrix;
-}
+import Calender from '../../factory/Calender/Caldender';
+import getDate from './useCalender.helper';
 
 function useCalender() {
   const [calender, setCalender] = useState<Calender>(() => {
     const { year, month } = getDate(Date.now());
-    return { year, month, calender: getCalender(year, month) };
+    return new Calender(year, month);
   });
 
   const setPrevMonthCalender = useCallback(() => {
@@ -19,11 +13,7 @@ function useCalender() {
       const nextYear = prev.month > 0 ? prev.year : prev.year - 1;
       const nextMonth = (prev.month + 11) % 12;
 
-      return {
-        year: nextYear,
-        month: nextMonth,
-        calender: getCalender(nextYear, nextMonth),
-      };
+      return new Calender(nextYear, nextMonth);
     });
   }, []);
 
@@ -33,7 +23,7 @@ function useCalender() {
 
       if (prev.year === year && prev.month === month) return prev;
 
-      return { year, month, calender: getCalender(year, month) };
+      return new Calender(year, month);
     });
   }, []);
 
@@ -42,11 +32,7 @@ function useCalender() {
       const nextYear = Math.floor((prev.month + 1) / 12) + prev.year;
       const nextMonth = (prev.month + 1) % 12;
 
-      return {
-        year: nextYear,
-        month: nextMonth,
-        calender: getCalender(nextYear, nextMonth),
-      };
+      return new Calender(nextYear, nextMonth);
     });
   }, []);
 
