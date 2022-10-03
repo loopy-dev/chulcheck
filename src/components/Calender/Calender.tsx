@@ -3,7 +3,11 @@ import useCalender from '../../hooks/useCalender';
 import { formatYearMonth } from '../../utils/dateFormat';
 import CalenderInner from './CalenderInner';
 
-const Calender = () => {
+interface Props {
+  onClickItem?: React.MouseEventHandler<HTMLDivElement>;
+}
+
+const Calender = ({ onClickItem }: Props) => {
   const {
     calender,
     setPrevMonthCalender,
@@ -26,7 +30,7 @@ const Calender = () => {
           <CalenderNextButton type="button" onClick={setNextMonthCalender} />
         </CalenderController>
       </CalenderHeader>
-      <CalenderInner calender={calender.calender} month={calender.month} />
+      <CalenderInner calender={calender} onClickItem={onClickItem} />
     </CalenderContainer>
   );
 };
