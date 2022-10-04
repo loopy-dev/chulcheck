@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { formatMonthDate } from '../../utils/dateFormat';
+import CalenderData from '../CalenderData/CalenderData';
 import type Calender from '../../factory/Calender/Caldender';
 
 interface Props {
@@ -44,6 +45,7 @@ const CalenderInner = ({ calender, onClickItem }: Props) => {
             </Column>
           ))}
           {/** TODO: 여기에 데이터 들어가야 함 */}
+          <CalenderData key={`data-${id}`} />
         </Row>
       ))}
     </Month>
@@ -76,7 +78,7 @@ const Title = styled.div<CalenderColumnProps>`
 
 const Month = styled.div`
   display: grid;
-  grid-template-rows: auto repeat(6, 1fr);
+  grid-template-rows: auto repeat(6, minmax(100px, max-content));
   grid-auto-rows: 1fr;
   border-top: 1px solid rgb(233, 233, 231);
   border-left: 1px solid rgb(233, 233, 231);
@@ -92,7 +94,7 @@ const Row = styled.div`
 
 const Column = styled.div<CalenderColumnProps>`
   position: relative;
-  height: 100px;
+  min-height: 100px;
   padding: 0.5rem;
   border-right: 1px solid rgb(233, 233, 231);
   border-bottom: 1px solid rgb(233, 233, 231);
