@@ -58,13 +58,3 @@ class Calender {
 }
 
 export default Calender;
-
-export type ReturnType = {
-  id: string;
-  week: {
-    id: string;
-    year: number;
-    month: number;
-    date: number;
-  }[];
-}[];

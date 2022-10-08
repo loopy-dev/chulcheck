@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { formatMonthDate } from '../../utils/dateFormat';
+import CalenderData from '../CalenderData';
 import type Calender from '../../factory/Calender/Caldender';
 
 interface Props {
@@ -13,7 +14,7 @@ const CalenderInner = ({ calender, onClickItem }: Props) => {
   const date = new Date(Date.now());
 
   return (
-    <Month>
+    <GridContainer>
       <Row>
         {days.map((day, index) => (
           <Title key={day} isWeekend={index === 0 || index === 6}>
@@ -21,32 +22,35 @@ const CalenderInner = ({ calender, onClickItem }: Props) => {
           </Title>
         ))}
       </Row>
-      {calender.calender.map(({ id, week }) => (
-        <Row key={id}>
-          {week.map((day, index) => (
-            <Column
-              key={day.id}
-              isWeekend={index === 0 || index === 6}
-              onClick={onClickItem}
-            >
-              <ColumnHeader>
-                <CalenderDate
-                  isCurrentDate={date.getDate() === day.date}
-                  isCurrentMonth={date.getMonth() === day.month}
-                  isCurrentYear={date.getFullYear() === day.year}
-                  isUserSetMonth={calender.month === day.month}
-                >
-                  {day.date === 1
-                    ? formatMonthDate(day.month, day.date)
-                    : day.date}
-                </CalenderDate>
-              </ColumnHeader>
-            </Column>
-          ))}
-          {/** TODO: 여기에 데이터 들어가야 함 */}
-        </Row>
-      ))}
-    </Month>
+      <Container>
+        {calender.calender.map(({ id, week }) => (
+          <Row key={id}>
+            {week.map((day, index) => (
+              <Column
+                key={day.id}
+                isWeekend={index === 0 || index === 6}
+                onClick={onClickItem}
+              >
+                <ColumnHeader>
+                  <CalenderDate
+                    isCurrentDate={date.getDate() === day.date}
+                    isCurrentMonth={date.getMonth() === day.month}
+                    isCurrentYear={date.getFullYear() === day.year}
+                    isUserSetMonth={calender.month === day.month}
+                  >
+                    {day.date === 1
+                      ? formatMonthDate(day.month, day.date)
+                      : day.date}
+                  </CalenderDate>
+                </ColumnHeader>
+              </Column>
+            ))}
+            {/** TODO: 여기에 데이터 들어가야 함, props으로 data 전달 받아서 표현할 것 */}
+            <CalenderData key={`data-${id}`} />
+          </Row>
+        ))}
+      </Container>
+    </GridContainer>
   );
 };
 
@@ -74,9 +78,9 @@ const Title = styled.div<CalenderColumnProps>`
   font-weight: 500;
 `;
 
-const Month = styled.div`
+const GridContainer = styled.div`
   display: grid;
-  grid-template-rows: auto repeat(6, 1fr);
+  grid-template-rows: auto repeat(6, minmax(100px, max-content));
   grid-auto-rows: 1fr;
   border-top: 1px solid rgb(233, 233, 231);
   border-left: 1px solid rgb(233, 233, 231);
@@ -92,7 +96,7 @@ const Row = styled.div`
 
 const Column = styled.div<CalenderColumnProps>`
   position: relative;
-  height: 100px;
+  min-height: 100px;
   padding: 0.5rem;
   border-right: 1px solid rgb(233, 233, 231);
   border-bottom: 1px solid rgb(233, 233, 231);
@@ -140,4 +144,8 @@ const CalenderDate = styled.span<CalenderDateProps>`
     isCurrentYear && isCurrentMonth && isCurrentDate ? `rgb(235, 87, 87)` : ''};
 
   font-size: 14px;
+`;
+
+const Container = styled.div`
+  position: relative;
 `;
