@@ -14,7 +14,7 @@ const CalenderInner = ({ calender, onClickItem }: Props) => {
   const date = new Date(Date.now());
 
   return (
-    <Month>
+    <Container>
       <Row>
         {days.map((day, index) => (
           <Title key={day} isWeekend={index === 0 || index === 6}>
@@ -22,33 +22,33 @@ const CalenderInner = ({ calender, onClickItem }: Props) => {
           </Title>
         ))}
       </Row>
-      {calender.calender.map(({ id, week }) => (
-        <Row key={id}>
-          {week.map((day, index) => (
-            <Column
-              key={day.id}
-              isWeekend={index === 0 || index === 6}
-              onClick={onClickItem}
-            >
-              <ColumnHeader>
-                <CalenderDate
-                  isCurrentDate={date.getDate() === day.date}
-                  isCurrentMonth={date.getMonth() === day.month}
-                  isCurrentYear={date.getFullYear() === day.year}
-                  isUserSetMonth={calender.month === day.month}
-                >
-                  {day.date === 1
-                    ? formatMonthDate(day.month, day.date)
-                    : day.date}
-                </CalenderDate>
-              </ColumnHeader>
-            </Column>
-          ))}
-          {/** TODO: 여기에 데이터 들어가야 함 */}
-          <CalenderData key={`data-${id}`} />
-        </Row>
-      ))}
-    </Month>
+      <div>
+        {calender.calender.map(({ id, week }) => (
+          <Row key={id}>
+            {week.map((day, index) => (
+              <Column
+                key={day.id}
+                isWeekend={index === 0 || index === 6}
+                onClick={onClickItem}
+              >
+                <ColumnHeader>
+                  <CalenderDate
+                    isCurrentDate={date.getDate() === day.date}
+                    isCurrentMonth={date.getMonth() === day.month}
+                    isCurrentYear={date.getFullYear() === day.year}
+                    isUserSetMonth={calender.month === day.month}
+                  >
+                    {day.date === 1
+                      ? formatMonthDate(day.month, day.date)
+                      : day.date}
+                  </CalenderDate>
+                </ColumnHeader>
+              </Column>
+            ))}
+          </Row>
+        ))}
+      </div>
+    </Container>
   );
 };
 
@@ -76,7 +76,7 @@ const Title = styled.div<CalenderColumnProps>`
   font-weight: 500;
 `;
 
-const Month = styled.div`
+const Container = styled.div`
   display: grid;
   grid-template-rows: auto repeat(6, minmax(100px, max-content));
   grid-auto-rows: 1fr;
