@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { formatMonthDate } from '../../utils/dateFormat';
-import CalenderData from '../CalenderData/CalenderData';
+import CalenderData from '../CalenderData';
 import type Calender from '../../factory/Calender/Caldender';
 
 interface Props {
@@ -14,7 +14,7 @@ const CalenderInner = ({ calender, onClickItem }: Props) => {
   const date = new Date(Date.now());
 
   return (
-    <Container>
+    <GridContainer>
       <Row>
         {days.map((day, index) => (
           <Title key={day} isWeekend={index === 0 || index === 6}>
@@ -22,7 +22,7 @@ const CalenderInner = ({ calender, onClickItem }: Props) => {
           </Title>
         ))}
       </Row>
-      <div>
+      <Container>
         {calender.calender.map(({ id, week }) => (
           <Row key={id}>
             {week.map((day, index) => (
@@ -45,10 +45,12 @@ const CalenderInner = ({ calender, onClickItem }: Props) => {
                 </ColumnHeader>
               </Column>
             ))}
+            {/** TODO: 여기에 데이터 들어가야 함, props으로 data 전달 받아서 표현할 것 */}
+            <CalenderData key={`data-${id}`} />
           </Row>
         ))}
-      </div>
-    </Container>
+      </Container>
+    </GridContainer>
   );
 };
 
@@ -76,7 +78,7 @@ const Title = styled.div<CalenderColumnProps>`
   font-weight: 500;
 `;
 
-const Container = styled.div`
+const GridContainer = styled.div`
   display: grid;
   grid-template-rows: auto repeat(6, minmax(100px, max-content));
   grid-auto-rows: 1fr;
@@ -142,4 +144,8 @@ const CalenderDate = styled.span<CalenderDateProps>`
     isCurrentYear && isCurrentMonth && isCurrentDate ? `rgb(235, 87, 87)` : ''};
 
   font-size: 14px;
+`;
+
+const Container = styled.div`
+  position: relative;
 `;
