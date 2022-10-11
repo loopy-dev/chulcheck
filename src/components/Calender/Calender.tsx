@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import useCalender from '../../hooks/useCalender';
+import useCalenderData from '../../hooks/useCalenderData';
 import { formatYearMonth } from '../../utils/dateFormat';
 import CalenderHeader from './CalenderHeader';
 import CalenderInner from './CalenderInner';
@@ -15,6 +16,7 @@ const Calender = ({ onClickItem }: Props) => {
     setCurrentMonthCalender,
     setNextMonthCalender,
   } = useCalender();
+  const items = useCalenderData();
 
   return (
     <Container>
@@ -24,7 +26,11 @@ const Calender = ({ onClickItem }: Props) => {
         onNext={setNextMonthCalender}
         onPrev={setPrevMonthCalender}
       />
-      <CalenderInner calender={calender} onClickItem={onClickItem} />
+      <CalenderInner
+        calender={calender}
+        items={items}
+        onClickItem={onClickItem}
+      />
     </Container>
   );
 };
