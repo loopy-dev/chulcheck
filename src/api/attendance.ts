@@ -1,8 +1,14 @@
+import type { User } from './auth';
+
 export interface Attendance {
   id: string;
   user: string;
   timestamp: string;
 }
+
+export type AttendanceResponse =
+  | Pick<Attendance, 'id' | 'timestamp'>
+  | { user: User };
 
 export const mockData: Attendance[] = [
   {
