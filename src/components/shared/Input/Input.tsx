@@ -2,7 +2,7 @@ import type { InputHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 import DEFAULT_COLORS from '../../../themes/colors';
 import { get400Color, get500Color } from '../../../utils/colorSelector';
-import type { Variant } from '../../../utils/colorSelector';
+import type { Variant } from '../../../themes/colors';
 
 interface VariantProps {
   variant?: Variant;

@@ -66,3 +66,4 @@ const DEFAULT_COLORS = {
 
 export default DEFAULT_COLORS;
 export type DefaultColors = keyof typeof DEFAULT_COLORS;
+export type Variant = 'default' | 'primary' | 'success' | 'warning' | 'error';

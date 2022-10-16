@@ -4,7 +4,7 @@ type FontSizes = {
   [key in FontSize]: number;
 };
 
-const DEAFULT_FONT_SIZES: FontSizes = {
+const DEFAULT_FONT_SIZES: FontSizes = {
   b3: 12,
   b2: 14,
   b1: 16,
@@ -16,4 +16,5 @@ const DEAFULT_FONT_SIZES: FontSizes = {
   h1: 40,
 };
 
-export default DEAFULT_FONT_SIZES;
+export default DEFAULT_FONT_SIZES;
+export type Size = 'sm' | 'md' | 'lg' | 'xl';
