@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import DEAFULT_FONT_SIZES from './fontSize';
+import DEAFULT_FONT_SIZES from './fontSizes';
 
 interface HeadingStyle {
   fontSize: CSSProperties['fontSize'];

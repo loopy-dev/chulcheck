@@ -1,8 +1,8 @@
 import type { InputHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 import DEFAULT_COLORS from '../../../themes/colors';
-import { getLighterColor, getDarkerColor } from './Input.helper';
-import type { Variant } from './Input.helper';
+import { get400Color, get500Color } from '../../../utils/colorSelector';
+import type { Variant } from '../../../utils/colorSelector';
 
 interface VariantProps {
   variant?: Variant;
@@ -21,13 +21,13 @@ export default Input;
 
 const borderStyle = css<VariantProps>`
   ${({ variant }) => css`
-    border: 1px solid ${getLighterColor(variant)};
+    border: 1px solid ${get400Color(variant)};
   `}
 `;
 
 const hoverAndFocusColorStyle = css<VariantProps>`
   ${({ variant }) => css`
-    border: 1px solid ${getDarkerColor(variant)};
+    border: 1px solid ${get500Color(variant)};
   `}
 `;
 
