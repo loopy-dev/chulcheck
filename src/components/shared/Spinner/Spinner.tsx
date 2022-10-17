@@ -17,9 +17,9 @@ const Spinner = styled.span<Props>`
   display: inline-block;
   width: ${({ size }) => size || 20}px;
   height: ${({ size }) => size || 20}px;
-  border: 3px solid ${DEFAULT_COLORS.gray_100};
+  border: 3px solid ${DEFAULT_COLORS.GREY_100};
   border-radius: 50%;
-  border-top: 3px solid ${DEFAULT_COLORS.gray_200};
+  border-top: 3px solid ${DEFAULT_COLORS.GREY_200};
 
   animation: ${spinnerKeyframes} 1s linear infinite;
 `;

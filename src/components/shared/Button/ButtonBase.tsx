@@ -22,7 +22,7 @@ export type Props = Partial<ButtonProps>;
 const buttonRoleStyle = css<Props>`
   ${({ variant = 'default' }) => css`
     background-color: ${get500Color(variant)};
-    color: ${DEFAULT_COLORS.gray_25};
+    color: ${DEFAULT_COLORS.GREY_25};
 
     &:hover {
       background-color: ${get600Color(variant)};
