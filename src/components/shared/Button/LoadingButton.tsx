@@ -25,7 +25,7 @@ const buttonLoadingStyle = css<Props>`
   ${({ disabled }) => {
     if (disabled) {
       return css`
-        color: ${DEFAULT_COLORS.transparent};
+        color: ${DEFAULT_COLORS.TRANSPARENT};
       `;
     }
     return css``;

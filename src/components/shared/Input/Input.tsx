@@ -33,7 +33,7 @@ const hoverAndFocusColorStyle = css<VariantProps>`
 
 const backgroundColorStyle = css<VariantProps>`
   ${({ disabled }) => {
-    const color = !disabled ? DEFAULT_COLORS.white : DEFAULT_COLORS.GREY_100;
+    const color = !disabled ? DEFAULT_COLORS.WHITE : DEFAULT_COLORS.GREY_100;
     return css`
       border-color: ${DEFAULT_COLORS.GREY_400};
       background-color: ${color};

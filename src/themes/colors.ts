@@ -1,7 +1,7 @@
 const DEFAULT_COLORS = {
-  transparent: 'transparent',
-  black: '#000000',
-  white: '#FFFFFF',
+  TRANSPARENT: 'transparent',
+  BLACK: '#000000',
+  WHITE: '#FFFFFF',
 
   GREY_25: '#FCFCFD',
   GREY_50: '#F9FAFB',
