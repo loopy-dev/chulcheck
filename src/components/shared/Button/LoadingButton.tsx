@@ -11,7 +11,7 @@ interface Props extends ButtonBaseProps {
 type LoadingProps = Pick<Props, 'loading'>;
 
 const Button = ({ loading = false, children, size, ...props }: Props) => (
-  <LoadingButton disabled={loading} {...props}>
+  <LoadingButton disabled={loading} size={size} {...props}>
     <Wrapper loading={loading}>
       <Spinner size={size === 'xl' ? 12 : 10} />
     </Wrapper>
