@@ -1,10 +1,11 @@
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { Calender } from './components/Calender';
 
 const App = () => (
-  <div className="App">
-    <Calender />
-  </div>
+  <Routes>
+    <Route element={<Calender />} path="/" />{' '}
+  </Routes>
 );
 
 export default App;

@@ -5,15 +5,15 @@ import ButtonBase from './ButtonBase';
 import type { Props as ButtonBaseProps } from './ButtonBase';
 
 interface Props extends ButtonBaseProps {
-  loading?: boolean;
+  isLoading?: boolean;
 }
 
-type LoadingProps = Pick<Props, 'loading'>;
+type LoadingProps = Pick<Props, 'isLoading'>;
 
-const Button = ({ loading = false, children, size, ...props }: Props) => (
-  <LoadingButton disabled={loading} size={size} {...props}>
-    <Wrapper loading={loading}>
-      <Spinner size={size === 'xl' ? 12 : 10} />
+const Button = ({ isLoading = false, children, size, ...props }: Props) => (
+  <LoadingButton disabled={isLoading} size={size} {...props}>
+    <Wrapper isLoading={isLoading}>
+      <Spinner size={size === 'xl' ? 16 : 14} />
     </Wrapper>
     {children}
   </LoadingButton>
@@ -49,5 +49,5 @@ const Wrapper = styled.span<LoadingProps>`
   justify-content: center;
   align-items: center;
   position: absolute;
-  visibility: ${({ loading }) => (loading ? 'visible' : 'hidden')};
+  visibility: ${({ isLoading = false }) => (isLoading ? 'visible' : 'hidden')};
 `;

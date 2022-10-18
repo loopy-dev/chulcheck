@@ -26,7 +26,7 @@ const CalenderInner = ({ calender, onClickItem, items }: Props) => (
       {calender.calender.map(({ id, week }) => (
         <Row key={id}>
           {week.map((day, index) => (
-            <Column
+            <Cell
               key={day.id}
               isWeekend={index === 0 || index === 6}
               onClick={() => {
@@ -40,7 +40,7 @@ const CalenderInner = ({ calender, onClickItem, items }: Props) => (
                 year={day.year}
               />
               <DataCell dateData={day} items={items} />
-            </Column>
+            </Cell>
           ))}
           {/** TODO: 여기에 데이터 들어가야 함, props으로 data 전달 받아서 표현할 것 */}
           {/* <CalenderData key={`data-${id}`} /> */}
@@ -83,7 +83,7 @@ const Row = styled.div`
   position: relative;
 `;
 
-const Column = styled.div<CalenderColumnProps>`
+const Cell = styled.div<CalenderColumnProps>`
   position: relative;
   min-height: 100px;
   padding: 0.5rem;
