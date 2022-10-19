@@ -46,6 +46,7 @@ const Wrapper = styled.div<VariantProps>`
   /** TODO: size 별로 나누어서 진행하기 */
   padding: 9px 10px;
   border-radius: 6px;
+  width: 100%;
 
   /** border-color style */
   ${borderStyle}
@@ -67,8 +68,10 @@ const StyledInput = styled.input`
   outline: none;
   text-overflow: ellipsis;
   background-color: transparent;
+  line-height: 1.4;
 
   &:disabled {
     background-color: transparent;
+    user-select: none;
   }
 `;

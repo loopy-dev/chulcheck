@@ -41,7 +41,10 @@ const Container = styled.div`
 `;
 
 const CalenderDate = styled.span<CalenderDateProps>`
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
   min-width: 22px;
   min-height: 22px;
   border-radius: 50%;
@@ -66,5 +69,8 @@ const CalenderDate = styled.span<CalenderDateProps>`
   background-color: ${({ isCurrentYear, isCurrentMonth, isCurrentDate }) =>
     isCurrentYear && isCurrentMonth && isCurrentDate ? `rgb(235, 87, 87)` : ''};
 
+  text-align: center;
+
   font-size: 14px;
+  line-height: 1.2;
 `;

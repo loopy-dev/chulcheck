@@ -17,3 +17,11 @@ export default {
 export const Default: ComponentStory<typeof Input> = (args) => (
   <Input {...args} />
 );
+
+export const File: ComponentStory<typeof Input> = (args) => (
+  <Input {...args} type="file" />
+);
+
+export const Number: ComponentStory<typeof Input> = (args) => (
+  <Input {...args} type="number" />
+);

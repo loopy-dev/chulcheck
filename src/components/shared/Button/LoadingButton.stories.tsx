@@ -5,12 +5,12 @@ export default {
   title: 'Components/LoadingButton',
   component: Button,
   args: {
-    loading: false,
+    isLoading: false,
     fullWidth: false,
     variant: 'default',
   },
   argTypes: {
-    loading: {
+    isLoading: {
       name: 'loading',
       type: { name: 'boolean', required: false },
       defaultValue: false,
