@@ -8,7 +8,7 @@ type ObjectState = {
 interface Props<T extends ObjectState> {
   initialState: T;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
-  validate?: (initialState: T) => T;
+  validate?: (initialState: T) => Partial<T>;
 }
 
 function useForm<T extends ObjectState>({
@@ -41,6 +41,7 @@ function useForm<T extends ObjectState>({
   /**
    * @description
    * form에 submit event가 발생될 때 실행될 함수입니다.
+   * error 객체에 값이 존재한다면, submit 이벤트가 발생하지 않습니다.
    */
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
