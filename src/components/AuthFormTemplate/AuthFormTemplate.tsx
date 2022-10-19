@@ -1,6 +1,8 @@
 import type { FormHTMLAttributes } from 'react';
 import styled from 'styled-components';
-import DEFAULT_COLORS from '../../themes/colors';
+import DEFAULT_BREAKPOINTS from '../../themes/breakpoints';
+import DEFAULT_HEADING_STYLES from '../../themes/headings';
+import DEFAULT_SHADOWS from '../../themes/shadows';
 import { H1 } from '../shared/Headings';
 
 interface Props extends FormHTMLAttributes<HTMLFormElement> {
@@ -44,16 +46,31 @@ const Form = styled.form`
   justify-content: center;
   align-items: center;
 
-  padding: 32px 64px;
+  padding: 32px 48px;
 
   width: 100%;
-  border: 2px solid ${DEFAULT_COLORS.GREY_200};
   border-radius: 6px;
+  box-shadow: ${DEFAULT_SHADOWS.dp2};
+
+  @media screen and (max-width: ${DEFAULT_BREAKPOINTS.md}px) {
+    padding: 32px 16px;
+  }
+
+  @media screen and (max-width: ${DEFAULT_BREAKPOINTS.sm}px) {
+    padding: 16px 8px;
+  }
 `;
 
 const Title = styled.div`
   margin: 36px 0;
   text-align: center;
+
+  @media screen and (max-width: ${DEFAULT_BREAKPOINTS.md}px) {
+    * {
+      font-size: ${DEFAULT_HEADING_STYLES.h4.fontSize}px;
+      line-height: ${DEFAULT_HEADING_STYLES.h4.lineHeight}px;
+    }
+  }
 `;
 
 const Controller = styled.div`
