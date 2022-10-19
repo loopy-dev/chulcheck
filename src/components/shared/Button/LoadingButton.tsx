@@ -13,7 +13,7 @@ type LoadingProps = Pick<Props, 'isLoading'>;
 const Button = ({ isLoading = false, children, size, ...props }: Props) => (
   <LoadingButton disabled={isLoading} size={size} {...props}>
     <Wrapper isLoading={isLoading}>
-      <Spinner size={size === 'xl' ? 16 : 14} />
+      <Spinner size={size === 'xl' ? 18 : 16} />
     </Wrapper>
     {children}
   </LoadingButton>
