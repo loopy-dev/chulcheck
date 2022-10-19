@@ -1,38 +1,38 @@
-import type React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { signin } from '../api/auth';
 import AuthFormTemplate from '../components/AuthFormTemplate';
 import { LoadingButton } from '../components/shared/Button';
 import Input from '../components/shared/Input';
+import useForm from '../hooks/shared/useForm';
 
 const SigninPage = () => {
   // signin logic goes here
-  const [data, setData] = useState({ username: '', password: '' });
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({
-    id: '',
-    password: '',
-    result: '',
+  const { data, handleSubmit, handleChange } = useForm({
+    initialState: {
+      username: '',
+      password: '',
+    },
+    onSubmit: async () => {
+      try {
+        setLoading(true);
+        const response = await signin(data.username, data.password);
+
+        // TODO - 전역상태 및 localstorage에 token 정보 저장하기
+        localStorage.setItem('token', response.token);
+
+        // go to main page
+        navigate('/', { replace: true });
+      } catch {
+        setLoading(false);
+        // TODO - go error in catch block
+        // TODO - 다른 UI로 바꾸기
+        alert('아이디 또는 비밀번호가 다릅니다.');
+      }
+    },
   });
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const response = await signin(data.username, data.password);
-      // TODO - 전역상태 및 localstorage에 token 정보 저장하기
-      // TODO - console 지우기
-      // TODO - 비제어 컴포넌트 적용하기
-      console.log('login success');
-    } catch {
-      setLoading(false);
-      // TODO - go error in catch block
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
   return (
     <AuthFormTemplate
