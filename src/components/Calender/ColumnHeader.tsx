@@ -72,5 +72,4 @@ const CalenderDate = styled.span<CalenderDateProps>`
   text-align: center;
 
   font-size: 14px;
-  line-height: 1.2;
 `;

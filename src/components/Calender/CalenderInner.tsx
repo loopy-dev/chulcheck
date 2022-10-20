@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import DataCell from '../CalenderData/DataCell';
-import ColumnHeader from './ColumnHeader';
+import CellHeader from './ColumnHeader';
 import type { Attendance } from '../../api/attendance';
 import type Calender from '../../factory/Calender/Caldender';
 import type { CellClickEventHandler } from './Calender';
@@ -14,7 +14,7 @@ interface Props {
 const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 const CalenderInner = ({ calender, onClickItem, items }: Props) => (
-  <GridContainer>
+  <FlexContainer>
     <Row>
       {days.map((day, index) => (
         <Title key={day} isWeekend={index === 0 || index === 6}>
@@ -33,7 +33,7 @@ const CalenderInner = ({ calender, onClickItem, items }: Props) => (
                 onClickItem?.(`${day.year}-${day.month + 1}-${day.date}`);
               }}
             >
-              <ColumnHeader
+              <CellHeader
                 calenderMonth={calender.month}
                 date={day.date}
                 month={day.month}
@@ -47,7 +47,7 @@ const CalenderInner = ({ calender, onClickItem, items }: Props) => (
         </Row>
       ))}
     </Container>
-  </GridContainer>
+  </FlexContainer>
 );
 
 export default CalenderInner;
@@ -57,34 +57,40 @@ interface CalenderColumnProps {
 }
 
 const Title = styled.div<CalenderColumnProps>`
+  flex: 1;
   position: relative;
+  width: 100%;
   border-right: 1px solid rgb(233, 233, 231);
   border-bottom: 1px solid rgb(233, 233, 231);
   padding: 0.5rem;
+
   background-color: ${({ isWeekend }) =>
     isWeekend ? 'rgb(251, 251, 250)' : '#ffffff'};
   font-size: 14px;
   font-weight: 500;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-rows: auto repeat(6, minmax(100px, max-content));
-  grid-auto-rows: 1fr;
+const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   border-top: 1px solid rgb(233, 233, 231);
   border-left: 1px solid rgb(233, 233, 231);
   border-radius: 2px;
 `;
 
 const Row = styled.div`
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-auto-columns: 1fr;
+  display: flex;
   position: relative;
 `;
 
 const Cell = styled.div<CalenderColumnProps>`
+  flex: 1;
   position: relative;
+  width: 100%;
   min-height: 100px;
   padding: 0.5rem;
   border-right: 1px solid rgb(233, 233, 231);
@@ -97,6 +103,9 @@ const Cell = styled.div<CalenderColumnProps>`
   &:hover {
     background-color: rgba(233, 233, 231, 0.3);
   }
+
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Container = styled.div`
