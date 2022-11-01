@@ -1,4 +1,4 @@
-import type { Attendance } from '../../api/attendance';
+import type { Attendance } from '../../api/types';
 import type { Day } from '../../factory/Calender';
 
 interface Props {

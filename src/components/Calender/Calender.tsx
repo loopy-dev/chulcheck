@@ -6,7 +6,7 @@ import useCalenderData from '../../hooks/useCalenderData';
 import { formatYearMonth } from '../../utils/dateFormat';
 import CalenderHeader from './CalenderHeader';
 import CalenderInner from './CalenderInner';
-import type { Attendance } from '../../api/attendance';
+import type { Attendance } from '../../api/types';
 
 export type CellClickEventHandler = (timestamp: string) => void;
 

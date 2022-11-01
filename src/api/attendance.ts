@@ -1,4 +1,5 @@
-import type { User } from './auth';
+import instance from './instance';
+import type { Attendance, AttendanceResponse } from './types';
 
 export interface Attendance {
   id: string;

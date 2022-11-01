@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { mockData } from '../../api/attendance';
-import type { Attendance } from '../../api/attendance';
+import type { Attendance } from '../../api/types';
 
 /**
  * @description
