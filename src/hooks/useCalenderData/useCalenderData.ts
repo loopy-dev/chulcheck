@@ -1,5 +1,8 @@
 import { useCallback, useState } from 'react';
-import { mockData } from '../../api/attendance';
+import {
+  getMonthlyAttendanceData,
+  postAttendanceData,
+} from '../../api/attendance';
 import type { Attendance } from '../../api/types';
 
 /**
@@ -8,16 +11,38 @@ import type { Attendance } from '../../api/types';
  * 데이터에 대한 기본적인 CRUD를 다룹니다.
  */
 function useCalenderData() {
-  const [attendence, setAttendence] = useState(mockData);
+  const [attendence, setAttendence] = useState<Attendance[]>([]);
 
-  // 출석 정보 불러오기
+  // ANCHOR - post 방식에 따라서 달라질 수도 있음
+  const getMonthlyAttendance = useCallback(async (month: number) => {
+    try {
+      const response = await getMonthlyAttendanceData(month);
 
-  // 클릭 시 데이터를 배열에 추가하기
-  const addAttendence = useCallback((newData: Attendance) => {
-    setAttendence((prev) => [...prev, newData]);
+      const attendanceData: Attendance[] = response.map((data) => ({
+        ...data,
+        user: data.user.username,
+      }));
+
+      setAttendence((prev) => [...prev, ...attendanceData]);
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
-  return { attendence, addAttendence };
+  // TODO - 정렬 알고리즘 구현하기
+  const addAttendence = useCallback(async () => {
+    try {
+      const response = await postAttendanceData();
+      setAttendence((prev) => [
+        ...prev,
+        { ...response, user: response.user.username },
+      ]);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+  return { attendence, addAttendence, getMonthlyAttendance };
 }
 
 export default useCalenderData;
