@@ -1,15 +1,5 @@
 import api from './instance';
-
-interface UserInterface {
-  id: number;
-  username: string;
-  password: string;
-  token: string;
-}
-
-export type UserResponse = Pick<UserInterface, 'id' | 'username' | 'token'>;
-export type User = Pick<UserInterface, 'id' | 'username'>;
-export type UserSigninFormType = Pick<UserInterface, 'username' | 'password'>;
+import type { UserResponse } from './types';
 
 export async function signup(username: string, password: string) {
   try {

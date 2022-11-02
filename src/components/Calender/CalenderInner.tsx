@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import DataCell from '../CalenderData/DataCell';
 import CellHeader from './ColumnHeader';
-import type { Attendance } from '../../api/attendance';
+import type { Attendance } from '../../api/types';
 import type Calender from '../../factory/Calender/Caldender';
 import type { CellClickEventHandler } from './Calender';
 

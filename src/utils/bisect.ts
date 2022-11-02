@@ -59,3 +59,29 @@ export function bisectRight<T>(arr: T[], target: T, lo = 0, hi?: number) {
 
   return start;
 }
+
+/**
+ * 이분 탐색으로 위치를 찾고, 같은 것이 있다면 가장 왼쪽에 타겟을 삽입합니다.
+ * ANCHOR - 현재는 배열의 요소가 숫자인 경우에 대해서만 동작을 보장합니다.
+ * @param arr 정렬되어 있는 배열(number)
+ * @param target 기준이 되는 요소(number)
+ * @param lo 배열의 낮은 범위, 기본 값은 0
+ * @param hi 배열의 높은 범위, 기본 값은 배열의 길이
+ */
+export function insortLeft<T>(arr: T[], target: T, lo = 0, hi?: number) {
+  const start = bisectLeft(arr, target, lo, hi);
+  arr.splice(start, 0, target);
+}
+
+/**
+ * 이분 탐색으로 위치를 찾고, 같은 것이 있다면 가장 오른쪽에 타겟을 삽입합니다.
+ * ANCHOR - 현재는 배열의 요소가 숫자인 경우에 대해서만 동작을 보장합니다.
+ * @param arr 정렬되어 있는 배열(number)
+ * @param target 기준이 되는 요소(number)
+ * @param lo 배열의 낮은 범위, 기본 값은 0
+ * @param hi 배열의 높은 범위, 기본 값은 배열의 길이
+ */
+export function insortRight<T>(arr: T[], target: T, lo = 0, hi?: number) {
+  const start = bisectRight(arr, target, lo, hi);
+  arr.splice(start, 0, target);
+}

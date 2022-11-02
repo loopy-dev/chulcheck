@@ -1,12 +1,10 @@
 import { useCallback } from 'react';
 import styled from 'styled-components';
-import { v4 } from 'uuid';
 import useCalender from '../../hooks/useCalender';
 import useCalenderData from '../../hooks/useCalenderData';
 import { formatYearMonth } from '../../utils/dateFormat';
 import CalenderHeader from './CalenderHeader';
 import CalenderInner from './CalenderInner';
-import type { Attendance } from '../../api/attendance';
 
 export type CellClickEventHandler = (timestamp: string) => void;
 
@@ -27,20 +25,11 @@ const Calender = () => {
    * try...catch block을 이용하여 정시에 출석체크 했는지 체크
    * 이미 출석했다면, 눌러도 반응이 없도록 해야 함
    * 자료 구조를 set으로 바꿔야 할 필요성도 있음
+   * 출석하기 버튼은 따로 두고, 달력 cell 클릭 시 출석 정보를 불러오도록 하기
    */
-  const handleClickItem: CellClickEventHandler = useCallback(
-    (timestamp: string) => {
-      // create Attendence Object
-      const newAttendence: Attendance = {
-        id: v4(),
-        user: '1',
-        timestamp,
-      };
-
-      addAttendence(newAttendence);
-    },
-    [addAttendence],
-  );
+  const handleClickItem: CellClickEventHandler = useCallback(async () => {
+    await addAttendence();
+  }, [addAttendence]);
 
   return (
     <Container>

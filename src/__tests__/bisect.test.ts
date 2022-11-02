@@ -1,7 +1,16 @@
-import { bisectLeft, bisectRight } from '../utils/bisect';
+import {
+  bisectLeft,
+  bisectRight,
+  insortLeft,
+  insortRight,
+} from '../utils/bisect';
 
 describe('bisect', () => {
-  const arr = [1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 6, 6];
+  let arr = [1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 6, 6];
+
+  beforeEach(() => {
+    arr = [1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 6, 6];
+  });
 
   it('returns index', () => {
     expect(bisectLeft(arr, 2)).toBe(1);
@@ -33,5 +42,29 @@ describe('bisect', () => {
     // NOTE - to test error, you have to wrap the code in a function
     expect(() => bisectLeft(arr, 3, -1)).toThrow();
     expect(() => bisectRight(arr, 3, -1)).toThrow();
+  });
+
+  it('insert at first left', () => {
+    insortLeft(arr, 0);
+
+    expect(arr).toEqual([0, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 6, 6]);
+  });
+
+  it('insert at first right', () => {
+    insortRight(arr, 0);
+
+    expect(arr).toEqual([0, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 6, 6]);
+  });
+
+  it('insert at last left', () => {
+    insortLeft(arr, 7);
+
+    expect(arr).toEqual([1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 6, 6, 7]);
+  });
+
+  it('insert at last right', () => {
+    insortRight(arr, 7);
+
+    expect(arr).toEqual([1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 6, 6, 7]);
   });
 });
