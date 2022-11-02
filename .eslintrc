@@ -56,7 +56,7 @@
         "warnOnUnassignedImports": true
       }
     ],
-    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
     "react/function-component-definition": [
       "error",
       {
