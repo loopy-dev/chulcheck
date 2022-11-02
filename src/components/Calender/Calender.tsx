@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import useAttendance from '../../hooks/useAttendance';
 import useCalender from '../../hooks/useCalender';
@@ -15,7 +15,7 @@ const Calender = () => {
     setCurrentMonthCalender,
     setNextMonthCalender,
   } = useCalender();
-  const { attendence, addAttendence } = useAttendance();
+  const { attendance, addAttendence, getMonthlyAttendance } = useAttendance();
 
   /**
    * @description
@@ -31,6 +31,12 @@ const Calender = () => {
     await addAttendence();
   }, [addAttendence]);
 
+  // NOTE - 오늘 날짜의 달만 불러오고, 그 뒤에는 버튼을 통해서 추가한다.
+  useEffect(() => {
+    const month = new Date().getMonth();
+    getMonthlyAttendance(month + 1);
+  }, [getMonthlyAttendance]);
+
   return (
     <Container>
       <CalenderHeader
@@ -41,7 +47,7 @@ const Calender = () => {
       />
       <CalenderInner
         calender={calender}
-        items={attendence}
+        items={attendance}
         onClickItem={handleClickItem}
       />
     </Container>

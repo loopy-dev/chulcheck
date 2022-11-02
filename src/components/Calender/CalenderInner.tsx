@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import DataCell from '../CalenderData/DataCell';
 import CellHeader from './ColumnHeader';
-import type { Attendance } from '../../api/types';
 import type Calender from '../../factory/Calender/Caldender';
+import type { AttendancePair } from '../../hooks/useAttendance/useAttendance.helper';
 import type { CellClickEventHandler } from './Calender';
 
 interface Props {
   calender: Calender;
   onClickItem?: CellClickEventHandler;
-  items: Attendance[];
+  items: AttendancePair;
 }
 
 const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
