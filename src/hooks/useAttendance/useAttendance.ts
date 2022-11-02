@@ -10,7 +10,7 @@ import type { Attendance } from '../../api/types';
  * 사용자의 출석 데이터를 다루는 hook입니다.
  * 데이터에 대한 기본적인 CRUD를 다룹니다.
  */
-function useCalenderData() {
+function useAttendance() {
   const [attendence, setAttendence] = useState<Attendance[]>([]);
 
   // ANCHOR - post 방식에 따라서 달라질 수도 있음
@@ -45,4 +45,4 @@ function useCalenderData() {
   return { attendence, addAttendence, getMonthlyAttendance };
 }
 
-export default useCalenderData;
+export default useAttendance;

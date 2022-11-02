@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import styled from 'styled-components';
+import useAttendance from '../../hooks/useAttendance';
 import useCalender from '../../hooks/useCalender';
-import useCalenderData from '../../hooks/useCalenderData';
 import { formatYearMonth } from '../../utils/dateFormat';
 import CalenderHeader from './CalenderHeader';
 import CalenderInner from './CalenderInner';
@@ -15,7 +15,7 @@ const Calender = () => {
     setCurrentMonthCalender,
     setNextMonthCalender,
   } = useCalender();
-  const { attendence, addAttendence } = useCalenderData();
+  const { attendence, addAttendence } = useAttendance();
 
   /**
    * @description
