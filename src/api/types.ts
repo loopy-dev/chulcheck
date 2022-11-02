@@ -12,6 +12,11 @@ export type UserSigninFormType = Pick<UserInterface, 'username' | 'password'>;
 export interface Attendance {
   id: number;
   user: string;
+
+  /**
+   * timestamp is ISOString.
+   * ex) timestamp: "2022-11-01T02:28:08.561197Z"
+   */
   timestamp: string;
 }
 
