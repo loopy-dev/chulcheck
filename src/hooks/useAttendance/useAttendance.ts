@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo, useEffect } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import {
   getMonthlyAttendanceData,
   postAttendanceData,
@@ -41,7 +41,7 @@ function useAttendance() {
 
   const attendanceMemo = useMemo(
     () => formatAttendanceData(attendance),
-    [attendance],
+    [attendance]
   );
 
   return { attendance: attendanceMemo, addAttendence, getMonthlyAttendance };
