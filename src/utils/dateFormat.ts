@@ -1,22 +1,4 @@
-function formatYear(year: number) {
-  return `${year}년`;
-}
-
-function formatMonth(month: number) {
-  return `${month + 1}월`;
-}
-
-function formatDate(date: number) {
-  return `${date}일`;
-}
-
-export function formatYearMonth(year: number, month: number) {
-  return `${formatYear(year)} ${formatMonth(month)}`;
-}
-
-export function formatMonthDate(month: number, date: number) {
-  return `${formatMonth(month)} ${formatDate(date)}`;
-}
+import parseNumberToString from './parse';
 
 function getYear(dateObject: Date) {
   return dateObject.getFullYear();
@@ -31,44 +13,38 @@ function getDate(dateObject: Date) {
   return dateObject.getDate();
 }
 
-function parseYYYYMMdd(dateObject: Date) {
-  const result: string[] = [];
-
-  const year = getYear(dateObject);
-  const month = getMonth(dateObject);
-  const date = getDate(dateObject);
-
-  // NOTE - 현재는 year를 그대로 문자열로 변환하여 파싱합니다.
-  result.push(parseNumberToString(year, 4));
-
-  // TODO - 중복되는 부분 처리하기
-  result.push(parseNumberToString(month, 2));
-
-  result.push(parseNumberToString(date, 2));
-
-  return result;
+function parseDate(dateStringArr: string[], delimiter: string) {
+  return dateStringArr.join(delimiter);
 }
 
-export function parseNumberToString(target: number, numberOfDigits: number) {
-  if (numberOfDigits <= 0) {
-    throw new Error(
-      'invalid number of digits: number of digits must be higher than 0.'
-    );
-  }
-
-  if (target >= 10 ** (numberOfDigits - 1)) {
-    return String(target);
-  }
-
-  const ret = String(target);
-
-  return '0'.repeat(numberOfDigits - ret.length).concat(ret);
+function getYYYYmmDD(
+  year: number,
+  month: number,
+  date: number,
+  delimiter: string
+) {
+  return parseDate(
+    [
+      parseNumberToString(year, 4),
+      parseNumberToString(month, 2),
+      parseNumberToString(date, 2),
+    ],
+    delimiter
+  );
 }
 
-export function yyyyMMdd(dateObject: Date, delimiter = '-') {
-  const parsed = parseYYYYMMdd(dateObject);
+function getYYYYmm(year: number, month: number, delimiter: string) {
+  return parseDate(
+    [parseNumberToString(year, 4), parseNumberToString(month, 2)],
+    delimiter
+  );
+}
 
-  return parsed.join(delimiter);
+function getMMdd(month: number, date: number, delimiter: string) {
+  return parseDate(
+    [parseNumberToString(month, 2), parseNumberToString(date, 2)],
+    delimiter
+  );
 }
 
 interface ParseOptions {
@@ -76,17 +52,21 @@ interface ParseOptions {
   delimiter: string;
 }
 
-export function parseDate(
+export function formatDate(
   dateObject: Date,
   { format = 'YYYY-MM-DD', delimiter = '-' }: Partial<ParseOptions>
 ) {
-  if (format === 'MM-DD') {
-    // return something
-  }
+  const year = getYear(dateObject);
+  const month = getMonth(dateObject);
+  const date = getDate(dateObject);
 
   if (format === 'YYYY-MM') {
-    // return something
+    return getYYYYmm(year, month, delimiter);
   }
 
-  return yyyyMMdd(dateObject, delimiter);
+  if (format === 'MM-DD') {
+    return getMMdd(month, date, delimiter);
+  }
+
+  return getYYYYmmDD(year, month, date, delimiter);
 }

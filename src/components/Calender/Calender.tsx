@@ -2,7 +2,6 @@ import { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import useAttendance from '../../hooks/useAttendance';
 import useCalender from '../../hooks/useCalender';
-import { formatYearMonth } from '../../utils/dateFormat';
 import CalenderHeader from './CalenderHeader';
 import CalenderInner from './CalenderInner';
 
@@ -40,7 +39,7 @@ const Calender = () => {
   return (
     <Container>
       <CalenderHeader
-        title={formatYearMonth(calender.year, calender.month)}
+        title={`${calender.year}년 ${calender.month}월`}
         onCurrent={setCurrentMonthCalender}
         onNext={setNextMonthCalender}
         onPrev={setPrevMonthCalender}

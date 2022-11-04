@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { formatMonthDate } from '../../utils/dateFormat';
 
 interface Props {
   year: number;
@@ -18,7 +17,7 @@ const ColumnHeader = ({ calenderMonth, year, month, date }: Props) => {
         isCurrentYear={currentDate.getFullYear() === year}
         isUserSetMonth={calenderMonth === month}
       >
-        {date === 1 ? formatMonthDate(month, date) : date}
+        {date === 1 ? `${month}월 ${date}일` : date}
       </CalenderDate>
     </Container>
   );
