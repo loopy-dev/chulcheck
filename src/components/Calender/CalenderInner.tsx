@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { yyyyMMdd } from '../../utils/dateFormat';
 import DataCell from '../CalenderData/DataCell';
 import CellHeader from './ColumnHeader';
 import type Calender from '../../factory/Calender/Caldender';
@@ -30,7 +31,9 @@ const CalenderInner = ({ calender, onClickItem, items }: Props) => (
               key={day.id}
               isWeekend={index === 0 || index === 6}
               onClick={() => {
-                onClickItem?.(`${day.year}-${day.month + 1}-${day.date}`);
+                onClickItem?.(
+                  yyyyMMdd(new Date(day.year, day.month, day.date))
+                );
               }}
             >
               <CellHeader
