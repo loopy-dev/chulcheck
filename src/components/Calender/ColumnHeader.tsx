@@ -17,7 +17,7 @@ const ColumnHeader = ({ calenderMonth, year, month, date }: Props) => {
         isCurrentYear={currentDate.getFullYear() === year}
         isUserSetMonth={calenderMonth === month}
       >
-        {date === 1 ? `${month}월 ${date}일` : date}
+        {date === 1 ? `${month + 1}월 ${date}일` : date}
       </CalenderDate>
     </Container>
   );
