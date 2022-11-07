@@ -12,7 +12,7 @@ import type { AttendanceResponse } from '../../api/types';
  * 데이터에 대한 기본적인 CRUD를 다룹니다.
  */
 function useAttendance() {
-  const [attendance, setAttendence] = useState<AttendanceResponse[]>([]);
+  const [attendance, setAttendance] = useState<AttendanceResponse[]>([]);
 
   /**
    * @description
@@ -23,17 +23,17 @@ function useAttendance() {
     try {
       const response = await getMonthlyAttendanceData(month);
 
-      setAttendence((prev) => [...prev, ...response]);
+      setAttendance((prev) => [...prev, ...response]);
     } catch (error) {
       console.error(error);
     }
   }, []);
 
   // TODO - 정렬 알고리즘 구현하기
-  const addAttendence = useCallback(async () => {
+  const addAttendance = useCallback(async () => {
     try {
       const response = await postAttendanceData();
-      setAttendence((prev) => [...prev, response]);
+      setAttendance((prev) => [...prev, response]);
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +44,11 @@ function useAttendance() {
     [attendance]
   );
 
-  return { attendance: attendanceMemo, addAttendence, getMonthlyAttendance };
+  return {
+    attendance: attendanceMemo,
+    addAttendance,
+    getMonthlyAttendance,
+  };
 }
 
 export default useAttendance;

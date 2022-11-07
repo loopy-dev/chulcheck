@@ -1,6 +1,9 @@
 import { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
-import useAttendance from '../../hooks/useAttendance';
+import {
+  useAttendanceDispatchContext,
+  useAttendanceStateContext,
+} from '../../contexts/AttendanceProvider';
 import useCalender from '../../hooks/useCalender';
 import CalenderHeader from './CalenderHeader';
 import CalenderInner from './CalenderInner';
@@ -14,7 +17,8 @@ const Calender = () => {
     setCurrentMonthCalender,
     setNextMonthCalender,
   } = useCalender();
-  const { attendance, addAttendence, getMonthlyAttendance } = useAttendance();
+  const attendance = useAttendanceStateContext();
+  const { getMonthlyAttendance } = useAttendanceDispatchContext();
 
   /**
    * @description
@@ -25,10 +29,14 @@ const Calender = () => {
    * 이미 출석했다면, 눌러도 반응이 없도록 해야 함
    * 자료 구조를 set으로 바꿔야 할 필요성도 있음
    * 출석하기 버튼은 따로 두고, 달력 cell 클릭 시 출석 정보를 불러오도록 하기
+   * TODO - 클릭 시 출석 상세 정보를 불러오도록 수정하기
    */
-  const handleClickItem: CellClickEventHandler = useCallback(async () => {
-    await addAttendence();
-  }, [addAttendence]);
+  const handleClickItem: CellClickEventHandler = useCallback(
+    (timestamp: string) => {
+      console.log(timestamp);
+    },
+    []
+  );
 
   // NOTE - 오늘 날짜의 달만 불러오고, 그 뒤에는 버튼을 통해서 추가한다.
   useEffect(() => {
@@ -39,7 +47,7 @@ const Calender = () => {
   return (
     <Container>
       <CalenderHeader
-        title={`${calender.year}년 ${calender.month}월`}
+        title={`${calender.year}년 ${calender.month + 1}월`}
         onCurrent={setCurrentMonthCalender}
         onNext={setNextMonthCalender}
         onPrev={setPrevMonthCalender}
