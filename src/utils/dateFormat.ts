@@ -70,3 +70,61 @@ export function formatDate(
 
   return getYYYYmmDD(year, month, date, delimiter);
 }
+
+interface ParseTimeOptions {
+  format: 'HH:MM:SS';
+  delimiter: string;
+}
+
+/**
+ * @description
+ * 시간을 포맷하는 함수
+ * NOTE - 이 함수는 임시 함수입니다. 빠른 시일 내에 변경 예정입니다.
+ */
+export function formatTime(
+  dateObject: Date,
+  { format = 'HH:MM:SS', delimiter = ':' }: Partial<ParseTimeOptions>
+) {
+  const hours = dateObject.getHours();
+  const minutes = dateObject.getMinutes();
+  const seconds = dateObject.getSeconds();
+
+  if (format === 'HH:MM:SS') {
+    // do nothing
+  }
+
+  return parseDate(
+    [
+      parseNumberToString(hours, 2),
+      parseNumberToString(minutes, 2),
+      parseNumberToString(seconds, 2),
+    ],
+    delimiter
+  );
+}
+
+/**
+ * @description
+ * test용 formatTime 함수
+ */
+export function formatUTCTime(
+  dateObject: Date,
+  { format = 'HH:MM:SS', delimiter = ':' }: Partial<ParseTimeOptions>
+) {
+  const hours = dateObject.getUTCHours();
+  const minutes = dateObject.getUTCMinutes();
+  const seconds = dateObject.getUTCSeconds();
+
+  if (format === 'HH:MM:SS') {
+    // do nothing
+  }
+
+  return parseDate(
+    [
+      parseNumberToString(hours, 2),
+      parseNumberToString(minutes, 2),
+      parseNumberToString(seconds, 2),
+    ],
+    delimiter
+  );
+}

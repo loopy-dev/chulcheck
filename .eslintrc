@@ -68,6 +68,7 @@
       }
     ],
     "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "radix": "error",
     "react/function-component-definition": [
       "error",
       {

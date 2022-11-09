@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import { useAttendanceDispatchContext } from '../../contexts/AttendanceProvider';
 import useLoading from '../../hooks/shared/useLoading';
+import useTimer from '../../hooks/useTimer';
 import DEFAULT_SHADOWS from '../../themes/shadows';
+import { formatDate, formatTime } from '../../utils/dateFormat';
 import { LoadingButton } from '../shared/Button';
 
 const AttendanceCard = () => {
   const [loading, startTransition] = useLoading();
   const { addAttendance } = useAttendanceDispatchContext();
+  const timer = useTimer();
 
   // TODO - success 시 버튼에 표시하기
   // const message = useState('') and setTimeout으로 상태 변경하기
@@ -19,7 +22,8 @@ const AttendanceCard = () => {
   };
   return (
     <Container>
-      AttendanceCard
+      {formatDate(new Date(timer), { delimiter: '-' })}{' '}
+      {formatTime(new Date(timer), { delimiter: ':' })}
       <Wrapper>
         <LoadingButton
           fullWidth
