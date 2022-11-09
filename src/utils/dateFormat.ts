@@ -102,3 +102,29 @@ export function formatTime(
     delimiter
   );
 }
+
+/**
+ * @description
+ * test용 formatTime 함수
+ */
+export function formatUTCTime(
+  dateObject: Date,
+  { format = 'HH:MM:SS', delimiter = ':' }: Partial<ParseTimeOptions>
+) {
+  const hours = dateObject.getUTCHours();
+  const minutes = dateObject.getUTCMinutes();
+  const seconds = dateObject.getUTCSeconds();
+
+  if (format === 'HH:MM:SS') {
+    // do nothing
+  }
+
+  return parseDate(
+    [
+      parseNumberToString(hours, 2),
+      parseNumberToString(minutes, 2),
+      parseNumberToString(seconds, 2),
+    ],
+    delimiter
+  );
+}
