@@ -3,7 +3,7 @@ import { useAttendanceDispatchContext } from '../../contexts/AttendanceProvider'
 import useLoading from '../../hooks/shared/useLoading';
 import useTimer from '../../hooks/useTimer';
 import DEFAULT_SHADOWS from '../../themes/shadows';
-import formatDate from '../../utils/dateFormat';
+import { formatDate, formatTime } from '../../utils/dateFormat';
 import { LoadingButton } from '../shared/Button';
 
 const AttendanceCard = () => {
@@ -22,7 +22,8 @@ const AttendanceCard = () => {
   };
   return (
     <Container>
-      {formatDate(new Date(timer), { delimiter: '-' })}
+      {formatDate(new Date(timer), { delimiter: '-' })}{' '}
+      {formatTime(new Date(timer), { delimiter: ':' })}
       <Wrapper>
         <LoadingButton
           fullWidth
