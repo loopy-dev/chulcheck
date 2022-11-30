@@ -22,3 +22,21 @@ export interface Attendance {
 
 export type AttendanceResponse =
   | Pick<Attendance, 'id' | 'timestamp'> & { user: User };
+
+// TODO - 추후 factory 함수 통해 camelCase로 변경하기
+export interface Organization {
+  id: number;
+  name: string;
+  leader: User;
+  members: User[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type OrganizationResponse = Omit<
+  Organization,
+  'createdAt' | 'updatedAt'
+> & {
+  created_at: string;
+  updated_at: string;
+};

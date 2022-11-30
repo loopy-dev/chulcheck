@@ -14,9 +14,11 @@ const DropdownItem = ({ onClick, children }: Partial<Props>) => {
 export default DropdownItem;
 
 const Wrapper = styled.li`
-  line-height: 1.4;
-  padding: 16px 8px;
+  padding: 12px 8px;
+  max-height: 256px;
   border-bottom: 1px solid ${DEFAULT_COLORS.GREY_300};
+  font-size: 14px;
+  line-height: 1.2;
   overflow-x: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
