@@ -6,7 +6,7 @@ import AttendanceProvider from '../contexts/AttendanceProvider';
 const MainPage = () => {
   return (
     <AttendanceProvider>
-      <MainPageLayout left={<Calender />} right={<AttendanceCard />} />;
+      <MainPageLayout left={<Calender />} right={<AttendanceCard />} />
     </AttendanceProvider>
   );
 };
