@@ -26,6 +26,7 @@ export type AttendanceResponse =
 // TODO - 추후 factory 함수 통해 camelCase로 변경하기
 export interface Organization {
   id: number;
+  name: string;
   leader: User;
   members: User[];
   createdAt: string;
