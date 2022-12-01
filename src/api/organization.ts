@@ -36,3 +36,18 @@ export const getOrganization = async (id: number) => {
     throw new Error('error occurred at getOrganization.');
   }
 };
+
+export const createOrganization = async (name: string) => {
+  try {
+    const response = await instance.post<OrganizationResponse>(
+      '/api/organizations',
+      {
+        name,
+      }
+    );
+
+    return response.data;
+  } catch {
+    throw new Error('error occurred at createOrganization.');
+  }
+};
