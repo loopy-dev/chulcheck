@@ -1,5 +1,5 @@
 import instance from './instance';
-import { OrganizationResponse } from './types';
+import type { OrganizationResponse } from './types';
 
 /**
  * @description

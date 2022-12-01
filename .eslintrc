@@ -24,6 +24,14 @@
   "plugins": ["@typescript-eslint", "import", "react", "react-hooks"],
   "rules": {
     "@typescript-eslint/array-type": ["error", { "default": "array-simple" }],
+    "@typescript-eslint/consistent-type-exports": [
+      "error",
+      { "fixMixedExportsWithInlineTypeSpecifier": false }
+    ],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      { "prefer": "type-imports" }
+    ],
     "@typescript-eslint/naming-convention": [
       "error",
       {
@@ -77,6 +85,7 @@
     ],
     "react/jsx-props-no-spreading": "off",
     "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }],
+    "react/jsx-no-useless-fragment": "warn",
     "react/jsx-sort-props": [
       "error",
       {
