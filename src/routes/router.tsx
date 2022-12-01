@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import GroupCreatePage from '../pages/GroupCreatePage';
 import MainPage from '../pages/MainPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import SigninPage from '../pages/SigninPage';
@@ -18,6 +19,14 @@ const Router = () => (
     />
     <Route element={<SigninPage />} path="/signin" />
     <Route element={<SignupPage />} path="/signup" />
+    <Route
+      path="/groups/create"
+      element={
+        <Protected>
+          <GroupCreatePage />
+        </Protected>
+      }
+    />
   </Routes>
 );
 
