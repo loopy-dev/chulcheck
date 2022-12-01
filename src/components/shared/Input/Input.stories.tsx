@@ -25,3 +25,10 @@ export const File: ComponentStory<typeof Input> = (args) => (
 export const Number: ComponentStory<typeof Input> = (args) => (
   <Input {...args} type="number" />
 );
+
+export const InputWithLabel: ComponentStory<typeof Input> = (args) => (
+  <>
+    <Input {...args} />
+    <Input {...args} label="input" />
+  </>
+);

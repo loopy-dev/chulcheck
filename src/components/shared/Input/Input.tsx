@@ -9,15 +9,36 @@ interface VariantProps {
   disabled?: boolean;
 }
 
-interface Props extends InputHTMLAttributes<HTMLInputElement>, VariantProps {}
+interface Props extends InputHTMLAttributes<HTMLInputElement>, VariantProps {
+  label?: string;
+}
 
-const Input = ({ variant, ...props }: Props) => (
-  <Wrapper disabled={props.disabled} variant={variant}>
-    <StyledInput {...props} />
-  </Wrapper>
-);
+const Input = ({ variant, label, ...props }: Props) =>
+  label ? (
+    <Container>
+      <LabelWrapper>{label}</LabelWrapper>
+      <InputBase variant={variant} {...props} />
+    </Container>
+  ) : (
+    <InputBase variant={variant} {...props} />
+  );
 
+const InputBase = ({ variant, ...props }: Props) => {
+  return (
+    <Wrapper disabled={props.disabled} variant={variant}>
+      <StyledInput {...props} />
+    </Wrapper>
+  );
+};
 export default Input;
+
+const Container = styled.div`
+  line-height: 1.2;
+`;
+
+const LabelWrapper = styled.div`
+  padding-bottom: 8px;
+`;
 
 const borderStyle = css<VariantProps>`
   ${({ variant }) => css`
@@ -44,7 +65,7 @@ const backgroundColorStyle = css<VariantProps>`
 const Wrapper = styled.div<VariantProps>`
   position: relative;
   /** TODO: size 별로 나누어서 진행하기 */
-  padding: 9px 10px;
+  padding: 8px 10px;
   border-radius: 6px;
   width: 100%;
 
@@ -68,7 +89,7 @@ const StyledInput = styled.input`
   outline: none;
   text-overflow: ellipsis;
   background-color: transparent;
-  line-height: 1.4;
+  line-height: 1.2;
 
   &:disabled {
     background-color: transparent;
