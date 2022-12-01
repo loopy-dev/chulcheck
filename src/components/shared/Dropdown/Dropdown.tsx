@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import useClickAway from '../../../hooks/shared/useClickAway';
 import DropdownMenu from './DropdownMenu';
 
 type Item = {
@@ -36,6 +37,10 @@ const Dropdown = <T extends Item>({
     setIsOpen((prev) => !prev);
   };
 
+  const ref = useClickAway<HTMLDivElement>(() => {
+    close();
+  });
+
   // 범용적인 컴포넌트를 만들기 위해서는 다양한 이벤트에 대응할 수 있어야 한다.
   const triggerWithProps = React.isValidElement(trigger)
     ? React.cloneElement(trigger, {
@@ -65,6 +70,14 @@ const Dropdown = <T extends Item>({
 
           trigger.props.onChange?.(e);
         },
+        onFocus: (e: React.FocusEvent<HTMLInputElement>) => {
+          // INPUT element에 대해서만 적용
+          if (e.target.tagName !== 'INPUT') return;
+
+          if (items?.length) {
+            open();
+          }
+        },
       })
     : trigger;
 
@@ -75,7 +88,7 @@ const Dropdown = <T extends Item>({
   };
 
   return (
-    <Container>
+    <Container ref={ref}>
       {triggerWithProps}
       {/** Dropdown Menu 들어갈 자리 */}
       {isOpen && items?.length ? (
