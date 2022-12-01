@@ -6,6 +6,9 @@ import AuthFormLayout from '../components/layouts/AuthFormLayout';
 import { LoadingButton } from '../components/shared/Button';
 import Input from '../components/shared/Input';
 import useForm from '../hooks/shared/useForm';
+import Storage from '../utils/storage';
+
+const storage = new Storage();
 
 const SigninPage = () => {
   // signin logic goes here
@@ -22,7 +25,7 @@ const SigninPage = () => {
         const response = await signin(data.username, data.password);
 
         // TODO - 전역상태 및 localstorage에 token 정보 저장하기
-        localStorage.setItem('token', response.token);
+        storage.setItem('token', response.token);
 
         // go to main page
         navigate('/', { replace: true });
