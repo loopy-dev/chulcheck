@@ -39,7 +39,7 @@ export default DropdownMenu;
 
 const Container = styled.ul`
   position: absolute;
-  margin-top: 16px;
+  margin-top: 4px;
   padding: 16px 0;
   width: 100%;
   border: 1px solid ${DEFAULT_COLORS.GREY_300};

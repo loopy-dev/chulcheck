@@ -51,3 +51,27 @@ export const createOrganization = async (name: string) => {
     throw new Error('error occurred at createOrganization.');
   }
 };
+
+export const joinOrganization = async (organizationId: number) => {
+  try {
+    const response = await instance.put<OrganizationResponse>(
+      `/api/organizations/${organizationId}/users`
+    );
+
+    return response.data;
+  } catch {
+    throw new Error('error occurred at joinOrganization.');
+  }
+};
+
+export const getJoinedOrganization = async () => {
+  try {
+    const response = await instance.get<OrganizationResponse[]>(
+      '/api/organizations/joined'
+    );
+
+    return response.data;
+  } catch {
+    throw new Error('error occurred at getJoinedOrganization.');
+  }
+};
