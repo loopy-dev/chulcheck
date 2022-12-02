@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAttendanceDispatchContext } from '../../contexts/AttendanceProvider';
 import useLoading from '../../hooks/shared/useLoading';
@@ -6,8 +6,9 @@ import useOrganization from '../../hooks/useOrganization';
 import useTimer from '../../hooks/useTimer';
 import DEFAULT_SHADOWS from '../../themes/shadows';
 import { formatDate, formatTime } from '../../utils/dateFormat';
-import { Button, LoadingButton } from '../shared/Button';
+import { LoadingButton } from '../shared/Button';
 import Dropdown from '../shared/Dropdown';
+import Select from '../shared/Select';
 import type { Item } from '../shared/Dropdown';
 
 const AttendanceCard = () => {
@@ -21,6 +22,8 @@ const AttendanceCard = () => {
     key: organization.id,
     value: organization.name,
   }));
+
+  const [selectedItemIndex, setSelectedItemIndex] = useState(-1);
 
   // TODO - success 시 버튼에 표시하기
   // const message = useState('') and setTimeout으로 상태 변경하기
@@ -48,25 +51,27 @@ const AttendanceCard = () => {
         <Dropdown
           items={items}
           trigger={
-            <Button
-              onClick={() => {
-                console.log('click');
-              }}
-            >
-              Test
-            </Button>
+            <Select
+              title={
+                selectedItemIndex === -1
+                  ? '출석할 그룹 선택하기...'
+                  : items[selectedItemIndex].value
+              }
+            />
           }
+          onClickItem={(index) => setSelectedItemIndex(index)}
         />
-
-        <LoadingButton
-          fullWidth
-          isLoading={loading}
-          size="md"
-          variant="primary"
-          onClick={handleClick}
-        >
-          현재 시간으로 출석 체크하기
-        </LoadingButton>
+        <Wrapper>
+          <LoadingButton
+            fullWidth
+            isLoading={loading}
+            size="lg"
+            variant="primary"
+            onClick={handleClick}
+          >
+            현재 시간으로 출석 체크하기
+          </LoadingButton>
+        </Wrapper>
       </Wrapper>
     </Container>
   );

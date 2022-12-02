@@ -1,10 +1,9 @@
-import type { HTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 import DEFAULT_COLORS from '../../../themes/colors';
 import ArrowDown from './ArrowDown';
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
-  title: string;
+interface Props {
+  title?: React.ReactNode;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
@@ -64,6 +63,7 @@ const Wrapper = styled.div<WrapperProps>`
   font-size: 14px;
   overflow-x: hidden;
   text-overflow: ellipsis;
+  user-select: none;
 
   /* activation style */
   ${activationStyle}
