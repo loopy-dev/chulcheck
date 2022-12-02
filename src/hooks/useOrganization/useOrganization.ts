@@ -1,5 +1,8 @@
-import { useState } from 'react';
-import { getOrganizationList } from '../../api/organization';
+import { useState, useCallback } from 'react';
+import {
+  getOrganizationList,
+  getJoinedOrganization as getJoinedOrganizationAPI,
+} from '../../api/organization';
 import formatOrganization from './useOrganization.helper';
 import type { Organization } from '../../api/types';
 
@@ -17,7 +20,21 @@ const useOrganization = () => {
     }
   };
 
-  return { organizations, setOrganizations, searchOrganizations };
+  const getJoinedOrganizations = useCallback(async () => {
+    try {
+      const data = await getJoinedOrganizationAPI();
+      setOrganizations(formatOrganization(data));
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+  return {
+    organizations,
+    setOrganizations,
+    searchOrganizations,
+    getJoinedOrganizations,
+  };
 };
 
 export default useOrganization;
