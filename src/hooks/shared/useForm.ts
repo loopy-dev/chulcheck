@@ -5,10 +5,18 @@ type ObjectState = {
   [key: string | number | symbol]: unknown;
 };
 
+type TouchState<T> = {
+  [key in keyof T]: boolean;
+};
+
+type ErrorState<T> = {
+  [key in keyof T]: string;
+};
+
 interface Props<T extends ObjectState> {
   initialState: T;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
-  validate?: (initialState: T) => Partial<T>;
+  validate?: (initialState: T) => Partial<ErrorState<T>>;
 }
 
 function useForm<T extends ObjectState>({
@@ -17,8 +25,8 @@ function useForm<T extends ObjectState>({
   validate,
 }: Props<T>) {
   const [data, setData] = useState(initialState);
-  const [touched, setTouched] = useState<Partial<T>>({});
-  const [errors, setErrors] = useState<Partial<T>>({});
+  const [touched, setTouched] = useState<Partial<TouchState<T>>>({});
+  const [errors, setErrors] = useState<Partial<ErrorState<T>>>({});
 
   /**
    * @description
@@ -33,6 +41,7 @@ function useForm<T extends ObjectState>({
    * @description
    * input의 blur event가 발생할 때 실행될 함수입니다.
    * handleBlur 함수를 사용하기 위해서는 input 컴포넌트에 name 속성이 비어있으면 안됩니다.
+   * TODO - onBlur시 실시간 에러 처리
    */
   const handleBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
     setTouched((prev) => ({ ...prev, [e.target.name]: true }));
@@ -50,8 +59,8 @@ function useForm<T extends ObjectState>({
       setTouched(
         Object.keys(data).reduce(
           (acc, cur) => ({ ...acc, [cur]: true }),
-          {} as Partial<T>,
-        ),
+          {} as Partial<TouchState<T>>
+        )
       );
 
       const validationErrors = validate?.(data) || {};
@@ -61,9 +70,12 @@ function useForm<T extends ObjectState>({
         return;
       }
 
+      // error 전부 지우기
+      setErrors({});
+
       onSubmit(e);
     },
-    [data, onSubmit, validate],
+    [data, onSubmit, validate]
   );
 
   return { data, touched, errors, handleChange, handleBlur, handleSubmit };
