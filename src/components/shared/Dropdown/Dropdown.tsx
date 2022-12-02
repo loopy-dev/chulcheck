@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import useClickAway from '../../../hooks/shared/useClickAway';
 import DropdownMenu from './DropdownMenu';
 
-type Item = {
+export type Item = {
   key: string | number;
   value: React.ReactNode;
 };
