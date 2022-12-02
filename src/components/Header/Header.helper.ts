@@ -1,4 +1,4 @@
-import { OrganizationResponse, Organization } from '../../api/types';
+import type { OrganizationResponse, Organization } from '../../api/types';
 
 const formatOrganization = (
   organization: OrganizationResponse[]

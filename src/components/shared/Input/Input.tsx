@@ -33,6 +33,7 @@ const InputBase = ({ variant, ...props }: Props) => {
 export default Input;
 
 const Container = styled.div`
+  width: 100%;
   line-height: 1.2;
 `;
 

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getOrganizationList } from '../../api/organization';
-import { Organization } from '../../api/types';
+import { Button } from '../shared/Button';
 import Dropdown from '../shared/Dropdown';
 import Input from '../shared/Input';
 import NavigationBar from '../shared/NavigationBar';
 import formatOrganization from './Header.helper';
+import type { Organization } from '../../api/types';
 
 type Item = { key: string | number; value: React.ReactNode };
 
@@ -12,6 +14,7 @@ type Item = { key: string | number; value: React.ReactNode };
 const Header = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [organizations, setOrganizations] = useState<Organization[]>([]);
+  const naviagte = useNavigate();
 
   const items = organizations.map<Item>((organization) => ({
     key: organization.id,
@@ -42,9 +45,16 @@ const Header = () => {
     await getOrganizations(value);
   };
 
+  const handleClickGroupCreateButton = () => {
+    naviagte('/groups/create');
+  };
+
   return (
     <NavigationBar
       left={<div>Chulcheck(출첵)</div>}
+      middle={
+        <Button onClick={handleClickGroupCreateButton}>그룹 만들기</Button>
+      }
       right={
         <Dropdown
           items={items}

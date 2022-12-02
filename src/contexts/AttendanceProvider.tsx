@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 import useAttendance from '../hooks/useAttendance';
-import { AttendancePair } from '../hooks/useAttendance/useAttendance.helper';
+import type { AttendancePair } from '../hooks/useAttendance/useAttendance.helper';
 
 const AttendanceStateContext = createContext({});
 const AttendanceDispatchContext = createContext({});
