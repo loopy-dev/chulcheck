@@ -26,6 +26,7 @@ function useAttendance() {
     async (query?: AttendanceResponseQuery) => {
       try {
         const response = await getMonthlyAttendanceData(query);
+        console.log(response);
 
         setAttendance((prev) => [...prev, ...response]);
       } catch (error) {
