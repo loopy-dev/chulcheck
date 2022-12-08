@@ -25,14 +25,23 @@ const AttendanceCard = () => {
 
   const [selectedItemIndex, setSelectedItemIndex] = useState(-1);
 
-  // TODO - success 시 버튼에 표시하기
-  // const message = useState('') and setTimeout으로 상태 변경하기
-  const handleClick = async () => {
+  const postAttendance = async (organizationId: number) => {
     try {
-      await startTransition(addAttendance());
+      await startTransition(addAttendance(organizationId));
+
+      // initialize
+      setSelectedItemIndex(-1);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleClick = () => {
+    if (selectedItemIndex < 0) {
+      window.alert('그룹을 선택해 주세요.');
+      return;
+    }
+    postAttendance(organizations[selectedItemIndex].id);
   };
 
   // NOTE - useEffect로 컴포넌트 불러올 때 가입한 그룹 정보 불러오기

@@ -1,10 +1,18 @@
 import { useCallback, useState, useMemo } from 'react';
 import {
-  getMonthlyAttendanceData,
+  getAttendanceList as getAttendanceData,
   postAttendanceData,
 } from '../../api/attendance';
 import formatAttendanceData from './useAttendance.helper';
-import type { AttendanceResponse } from '../../api/types';
+import type {
+  AttendanceResponse,
+  AttendanceResponseQuery,
+} from '../../api/types';
+
+export type GetAttendanceListHandler = (
+  query?: AttendanceResponseQuery
+) => Promise<void>;
+export type AddAttendanceHandler = (organizationId: number) => Promise<void>;
 
 /**
  * @description
@@ -17,27 +25,32 @@ function useAttendance() {
   /**
    * @description
    * 월별 출석 데이터를 불러오는 함수입니다.
-   * @param month 출석을 불러올 1부터 12 사이의 숫자
+   * @param query `AttendanceResponseQuery`
    */
-  const getMonthlyAttendance = useCallback(async (month: number) => {
-    try {
-      const response = await getMonthlyAttendanceData(month);
+  const getAttendanceList: GetAttendanceListHandler = useCallback(
+    async (query) => {
+      try {
+        const response = await getAttendanceData(query);
 
-      setAttendance((prev) => [...prev, ...response]);
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
+        setAttendance((prev) => [...prev, ...response]);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    []
+  );
 
-  // TODO - 정렬 알고리즘 구현하기
-  const addAttendance = useCallback(async () => {
-    try {
-      const response = await postAttendanceData();
-      setAttendance((prev) => [...prev, response]);
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
+  const addAttendance: AddAttendanceHandler = useCallback(
+    async (organizationId) => {
+      try {
+        const response = await postAttendanceData(organizationId);
+        setAttendance((prev) => [...prev, response]);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    []
+  );
 
   const attendanceMemo = useMemo(
     () => formatAttendanceData(attendance),
@@ -47,7 +60,7 @@ function useAttendance() {
   return {
     attendance: attendanceMemo,
     addAttendance,
-    getMonthlyAttendance,
+    getAttendanceList,
   };
 }
 
