@@ -26,7 +26,6 @@ function useAttendance() {
     async (query?: AttendanceResponseQuery) => {
       try {
         const response = await getMonthlyAttendanceData(query);
-        console.log(response);
 
         setAttendance((prev) => [...prev, ...response]);
       } catch (error) {
@@ -36,10 +35,9 @@ function useAttendance() {
     []
   );
 
-  // TODO - 정렬 알고리즘 구현하기
-  const addAttendance = useCallback(async () => {
+  const addAttendance = useCallback(async (organizationId: number) => {
     try {
-      const response = await postAttendanceData();
+      const response = await postAttendanceData(organizationId);
       setAttendance((prev) => [...prev, response]);
     } catch (error) {
       console.error(error);

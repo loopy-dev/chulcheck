@@ -33,9 +33,12 @@ export async function getMonthlyAttendanceData(
  * @description
  * 요청한 시간에 출석 정보를 추가합니다.
  */
-export async function postAttendanceData() {
+export async function postAttendanceData(organizationId: number) {
   try {
-    const response = await instance.post<AttendanceResponse>('/api/attendance');
+    const response = await instance.post<AttendanceResponse>(
+      '/api/attendance',
+      { organization: organizationId }
+    );
 
     return response.data;
   } catch {

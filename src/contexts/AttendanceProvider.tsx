@@ -9,8 +9,9 @@ const AttendanceDispatchContext = createContext({});
 export const useAttendanceStateContext = () =>
   useContext(AttendanceStateContext) as AttendancePair;
 
+// TODO - 타입 정의 후 세트로 묶기
 interface AttendanceDispatchProps {
-  addAttendance: () => Promise<void>;
+  addAttendance: (organizationId?: number) => Promise<void>;
   getAttendanceList: (query?: AttendanceResponseQuery) => Promise<void>;
 }
 
