@@ -1,6 +1,9 @@
 import { createContext, useContext } from 'react';
 import useAttendance from '../hooks/useAttendance';
-import type { AttendanceResponseQuery } from '../api/types';
+import type {
+  GetAttendanceListHandler,
+  AddAttendanceHandler,
+} from '../hooks/useAttendance/useAttendance';
 import type { AttendancePair } from '../hooks/useAttendance/useAttendance.helper';
 
 const AttendanceStateContext = createContext({});
@@ -11,8 +14,8 @@ export const useAttendanceStateContext = () =>
 
 // TODO - 타입 정의 후 세트로 묶기
 interface AttendanceDispatchProps {
-  addAttendance: (organizationId?: number) => Promise<void>;
-  getAttendanceList: (query?: AttendanceResponseQuery) => Promise<void>;
+  addAttendance: AddAttendanceHandler;
+  getAttendanceList: GetAttendanceListHandler;
 }
 
 export const useAttendanceDispatchContext = () =>

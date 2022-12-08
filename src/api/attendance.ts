@@ -12,9 +12,7 @@ import type {
  * @param query `{ month?: number; organization?: number;}`
  * @returns `AttendanceResponse[]`
  */
-export async function getMonthlyAttendanceData(
-  query?: AttendanceResponseQuery
-) {
+export async function getAttendanceList(query?: AttendanceResponseQuery) {
   try {
     const response = await instance.get<AttendanceResponse[]>(
       `/api/attendance`,
