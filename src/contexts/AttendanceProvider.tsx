@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
 import useAttendance from '../hooks/useAttendance';
+import type { AttendanceResponseQuery } from '../api/types';
 import type { AttendancePair } from '../hooks/useAttendance/useAttendance.helper';
 
 const AttendanceStateContext = createContext({});
@@ -10,7 +11,7 @@ export const useAttendanceStateContext = () =>
 
 interface AttendanceDispatchProps {
   addAttendance: () => Promise<void>;
-  getMonthlyAttendance: (month: number) => Promise<void>;
+  getAttendanceList: (query?: AttendanceResponseQuery) => Promise<void>;
 }
 
 export const useAttendanceDispatchContext = () =>
@@ -21,11 +22,11 @@ interface Props {
 }
 
 const AttendanceProvider = ({ children }: Props) => {
-  const { attendance, addAttendance, getMonthlyAttendance } = useAttendance();
+  const { attendance, addAttendance, getAttendanceList } = useAttendance();
   return (
     <AttendanceStateContext.Provider value={attendance}>
       <AttendanceDispatchContext.Provider
-        value={{ addAttendance, getMonthlyAttendance }}
+        value={{ addAttendance, getAttendanceList }}
       >
         {children}
       </AttendanceDispatchContext.Provider>

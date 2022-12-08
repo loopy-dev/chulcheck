@@ -4,7 +4,10 @@ import {
   postAttendanceData,
 } from '../../api/attendance';
 import formatAttendanceData from './useAttendance.helper';
-import type { AttendanceResponse } from '../../api/types';
+import type {
+  AttendanceResponse,
+  AttendanceResponseQuery,
+} from '../../api/types';
 
 /**
  * @description
@@ -17,17 +20,20 @@ function useAttendance() {
   /**
    * @description
    * 월별 출석 데이터를 불러오는 함수입니다.
-   * @param month 출석을 불러올 1부터 12 사이의 숫자
+   * @param query `AttendanceResponseQuery`
    */
-  const getMonthlyAttendance = useCallback(async (month: number) => {
-    try {
-      const response = await getMonthlyAttendanceData(month);
+  const getAttendanceList = useCallback(
+    async (query?: AttendanceResponseQuery) => {
+      try {
+        const response = await getMonthlyAttendanceData(query);
 
-      setAttendance((prev) => [...prev, ...response]);
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
+        setAttendance((prev) => [...prev, ...response]);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    []
+  );
 
   // TODO - 정렬 알고리즘 구현하기
   const addAttendance = useCallback(async () => {
@@ -47,7 +53,7 @@ function useAttendance() {
   return {
     attendance: attendanceMemo,
     addAttendance,
-    getMonthlyAttendance,
+    getAttendanceList,
   };
 }
 

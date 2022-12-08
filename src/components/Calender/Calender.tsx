@@ -18,7 +18,7 @@ const Calender = () => {
     setNextMonthCalender,
   } = useCalender();
   const attendance = useAttendanceStateContext();
-  const { getMonthlyAttendance } = useAttendanceDispatchContext();
+  const { getAttendanceList } = useAttendanceDispatchContext();
 
   /**
    * @description
@@ -41,8 +41,8 @@ const Calender = () => {
   // NOTE - 오늘 날짜의 달만 불러오고, 그 뒤에는 버튼을 통해서 추가한다.
   useEffect(() => {
     const month = new Date().getMonth();
-    getMonthlyAttendance(month + 1);
-  }, [getMonthlyAttendance]);
+    getAttendanceList({ month: month + 1 });
+  }, [getAttendanceList]);
 
   return (
     <Container>
