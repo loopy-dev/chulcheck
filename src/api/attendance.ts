@@ -1,9 +1,5 @@
 import instance from './instance';
-import type {
-  Attendance,
-  AttendanceResponse,
-  AttendanceResponseQuery,
-} from './types';
+import type { AttendanceResponse, AttendanceResponseQuery } from './types';
 
 /**
  * @description

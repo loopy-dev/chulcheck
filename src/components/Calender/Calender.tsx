@@ -33,6 +33,7 @@ const Calender = () => {
    */
   const handleClickItem: CellClickEventHandler = useCallback(
     (timestamp: string) => {
+      // eslint-disable-next-line no-console
       console.log(timestamp);
     },
     []
