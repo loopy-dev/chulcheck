@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import DEFAULT_BREAKPOINTS from '../../themes/breakpoints';
 import DEFAULT_SHADOWS from '../../themes/shadows';
 import { H2 } from '../shared/Headings';
+import P from '../shared/Paragraph';
 import Layout from './Layout';
 import type { Organization } from '../../api/types';
 
@@ -13,11 +14,16 @@ const Template = ({ organization }: Props) => {
   return (
     <Layout>
       <Container>
+        {/** head */}
         <H2>Organization 정보</H2>
-        <div>이름: {organization.name}</div>
-        <div>리더: {organization.leader.username}</div>
-        <div>인원 수: {organization.members.length}명</div>
-        <div>생성일: {organization.createdAt}</div>
+
+        {/** body */}
+        <div>
+          <P>이름: {organization.name}</P>
+          <P>리더: {organization.leader.username}</P>
+          <P>인원 수: {organization.members.length}명</P>
+          <P>생성일: {organization.createdAt}</P>
+        </div>
       </Container>
     </Layout>
   );
