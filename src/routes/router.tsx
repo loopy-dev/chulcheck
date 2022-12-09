@@ -20,6 +20,14 @@ const Router = () => (
     <Route element={<SigninPage />} path="/signin" />
     <Route element={<SignupPage />} path="/signup" />
     <Route
+      path="/organizations/:id"
+      element={
+        <Protected>
+          <div>OrganizationInfoPage</div>
+        </Protected>
+      }
+    />
+    <Route
       path="/groups/create"
       element={
         <Protected>
