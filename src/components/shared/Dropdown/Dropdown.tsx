@@ -7,6 +7,7 @@ export type Item = {
   key: string | number;
   value: React.ReactNode;
 };
+
 interface Props<T> {
   /* trigger는 dropdown의 상태를 변화시킬 컴포넌트가 된다. */
   trigger: React.ReactNode;
@@ -82,7 +83,7 @@ const Dropdown = <T extends Item>({
     : trigger;
 
   // NOTE - Item 클릭 시 자동으로 드롭다운이 닫힘
-  const onClickItemWIthProps = (index: number) => {
+  const onClickItemWithProps = (index: number) => {
     close();
     onClickItem?.(index);
   };
@@ -92,7 +93,7 @@ const Dropdown = <T extends Item>({
       {triggerWithProps}
       {/** Dropdown Menu 들어갈 자리 */}
       {isOpen && items?.length ? (
-        <DropdownMenu items={items} onClickItem={onClickItemWIthProps} />
+        <DropdownMenu items={items} onClickItem={onClickItemWithProps} />
       ) : null}
     </Container>
   );
