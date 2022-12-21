@@ -10,8 +10,19 @@ interface Props extends ButtonBaseProps {
 
 type LoadingProps = Pick<Props, 'isLoading'>;
 
-const Button = ({ isLoading = false, children, size, ...props }: Props) => (
-  <LoadingButton disabled={isLoading} size={size} {...props}>
+const Button = ({
+  isLoading = false,
+  disabled,
+  children,
+  size,
+  ...props
+}: Props) => (
+  <LoadingButton
+    disabled={isLoading || disabled}
+    isLoading={isLoading}
+    size={size}
+    {...props}
+  >
     <Wrapper isLoading={isLoading}>
       <Spinner size={size === 'xl' ? 18 : 16} />
     </Wrapper>
@@ -22,8 +33,8 @@ const Button = ({ isLoading = false, children, size, ...props }: Props) => (
 export default Button;
 
 const buttonLoadingStyle = css<Props>`
-  ${({ disabled }) => {
-    if (disabled) {
+  ${({ isLoading }) => {
+    if (isLoading) {
       return css`
         color: ${DEFAULT_COLORS.TRANSPARENT};
       `;
