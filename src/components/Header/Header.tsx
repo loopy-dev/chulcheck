@@ -6,7 +6,7 @@ import Dropdown from '../shared/Dropdown';
 import Input from '../shared/Input';
 import NavigationBar from '../shared/NavigationBar';
 
-type Item = { key: string | number; value: React.ReactNode };
+type Item = { key: string | number; value: string };
 
 const Header = () => {
   const [inputValue, setInputValue] = useState<string>('');
@@ -19,17 +19,19 @@ const Header = () => {
     value: organization.name,
   }));
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-
-    const value = e.target.value.trim();
-
+  const searchValue = async (value: string) => {
     if (!value) {
       setOrganizations([]);
       return;
     }
 
     await searchOrganizations(value);
+  };
+
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+
+    await searchValue(e.target.value.trim());
   };
 
   const handleClickGroupCreateButton = () => {
@@ -52,6 +54,13 @@ const Header = () => {
               onChange={handleChange}
             />
           }
+          onClickItem={async (index) => {
+            setInputValue(items[index].value);
+
+            if (inputValue !== items[index].value) {
+              await searchValue(items[index].value);
+            }
+          }}
         />
       }
     />
