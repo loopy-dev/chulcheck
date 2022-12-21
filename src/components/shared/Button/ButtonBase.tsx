@@ -19,6 +19,16 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export type Props = Partial<ButtonProps>;
 
+const Button = ({ variant, size, fullWidth, children, ...props }: Props) => {
+  return (
+    <ButtonBase fullWidth={fullWidth} size={size} variant={variant} {...props}>
+      <Span>{children}</Span>
+    </ButtonBase>
+  );
+};
+
+export default Button;
+
 const buttonRoleStyle = css<Props>`
   ${({ variant = 'default' }) => css`
     background-color: ${get500Color(variant)};
@@ -90,15 +100,12 @@ const ButtonBase = styled.button<Props>`
   vertical-align: center;
   position: relative;
   min-width: 64px;
+  max-width: 100%;
   border: none;
   border-radius: 6px;
   padding: 10px 12px;
   cursor: pointer;
 
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   user-select: none;
 
   transition: background-color 0.1s ease;
@@ -113,4 +120,10 @@ const ButtonBase = styled.button<Props>`
   ${sizeStyle}
 `;
 
-export default ButtonBase;
+const Span = styled.span`
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+`;
