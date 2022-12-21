@@ -8,28 +8,7 @@ export default {
     isLoading: false,
     fullWidth: false,
     variant: 'default',
-  },
-  argTypes: {
-    isLoading: {
-      name: 'loading',
-      type: { name: 'boolean', required: false },
-      defaultValue: false,
-      description: 'loading condition',
-    },
-    variant: {
-      name: 'variant',
-      type: { name: 'string', required: false },
-      description: 'variant color',
-      control: 'radio',
-      options: ['default', 'primary', 'success', 'warning', 'error'],
-    },
-    size: {
-      name: 'size',
-      type: { name: 'string', required: false },
-      description: 'size',
-      control: 'radio',
-      options: ['sm', 'md', 'lg', 'xl'],
-    },
+    disabled: false,
   },
 } as ComponentMeta<typeof Button>;
 
