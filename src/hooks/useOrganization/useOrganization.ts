@@ -3,6 +3,7 @@ import {
   getOrganizationList,
   getJoinedOrganization as getJoinedOrganizationAPI,
   getOrganization,
+  joinOrganization as joinOrganizationApi,
 } from '../../api/organization';
 import {
   formatOrganizationList,
@@ -39,6 +40,11 @@ const useOrganization = () => {
     setOrganization(formatOrganization(data));
   }, []);
 
+  const joinOrganization = useCallback(async (id: number) => {
+    const data = await joinOrganizationApi(id);
+    setOrganization(formatOrganization(data));
+  }, []);
+
   return {
     organizations,
     organization,
@@ -46,6 +52,7 @@ const useOrganization = () => {
     setOrganizations,
     searchOrganizations,
     getJoinedOrganizations,
+    joinOrganization,
   };
 };
 
