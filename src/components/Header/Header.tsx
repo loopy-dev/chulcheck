@@ -19,6 +19,10 @@ const Header = () => {
     value: organization.name,
   }));
 
+  const goToOrganizationInfoPage = (id: number | string) => {
+    naviagte(`/organizations/${id}`);
+  };
+
   const searchValue = async (value: string) => {
     if (!value) {
       setOrganizations([]);
@@ -57,9 +61,7 @@ const Header = () => {
           onClickItem={async (index) => {
             setInputValue(items[index].value);
 
-            if (inputValue !== items[index].value) {
-              await searchValue(items[index].value);
-            }
+            goToOrganizationInfoPage(organizations[index].id);
           }}
         />
       }
