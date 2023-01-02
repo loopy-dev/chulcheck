@@ -36,6 +36,7 @@ export const Default: ComponentStory<typeof Dropdown> = () => {
 export const ButtonTrigger: ComponentStory<typeof Dropdown> = () => {
   return (
     <div style={{ width: '200px' }}>
+      click outside
       <Dropdown items={items} trigger={<button>trigger</button>} />
     </div>
   );
