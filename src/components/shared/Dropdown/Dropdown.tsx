@@ -38,9 +38,7 @@ const Dropdown = <T extends Item>({
     setIsOpen((prev) => !prev);
   };
 
-  const ref = useClickAway<HTMLDivElement>(() => {
-    close();
-  });
+  const ref = useClickAway<HTMLDivElement>(() => close());
 
   // 범용적인 컴포넌트를 만들기 위해서는 다양한 이벤트에 대응할 수 있어야 한다.
   const triggerWithProps = React.isValidElement(trigger)
@@ -78,6 +76,18 @@ const Dropdown = <T extends Item>({
           if (items?.length) {
             open();
           }
+
+          trigger.props.onFocus?.(e);
+        },
+        onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
+          // INPUT element에 대해서만 적용
+          if (e.target.tagName !== 'INPUT') return;
+
+          if (items?.length) {
+            close();
+          }
+
+          trigger.props.onBlur?.(e);
         },
       })
     : trigger;
