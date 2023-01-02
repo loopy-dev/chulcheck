@@ -60,5 +60,7 @@ const Wrapper = styled.span<LoadingProps>`
   justify-content: center;
   align-items: center;
   position: absolute;
+  left: 50%;
+  transform: translate(-50%);
   visibility: ${({ isLoading = false }) => (isLoading ? 'visible' : 'hidden')};
 `;
