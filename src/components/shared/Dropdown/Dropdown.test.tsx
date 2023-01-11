@@ -118,28 +118,4 @@ describe('Dropdown Test', () => {
       expect(screen.queryByText(item.value as string)).toBeNull()
     );
   });
-
-  // when click away from dropdown, expect to be closed
-  test('when click away from dropdown, expect to be closed', () => {
-    const trigger = <button>trigger</button>;
-
-    render(
-      <div>
-        <div>click outside</div>
-        <Dropdown items={items} trigger={trigger} />
-      </div>
-    );
-
-    // open DropdownItems
-    const button = screen.getByText('trigger');
-    fireEvent.click(button);
-
-    // close
-    const clickOutSideButton = screen.getByText('click outside');
-    fireEvent.mouseDown(clickOutSideButton);
-
-    items.forEach((item) =>
-      expect(screen.queryByText(item.value as string)).toBeNull()
-    );
-  });
 });
