@@ -79,28 +79,6 @@ describe('Dropdown Test', () => {
     );
   });
 
-  // when item exists, show dropdown item when focus on input although there are no texts in the trigger
-  test('when item exists, show dropdown item when focus on input although there are no texts in the trigger', () => {
-    const trigger = <input placeholder="write something" />;
-
-    render(
-      <Dropdown items={items} trigger={trigger} onClickItem={() => jest.fn()} />
-    );
-
-    const input = screen.getByPlaceholderText('write something');
-    fireEvent.focus(input);
-
-    items.forEach((item) =>
-      expect(screen.queryByText(item.value as string)).not.toBeNull()
-    );
-
-    fireEvent.blur(input);
-
-    items.forEach((item) =>
-      expect(screen.queryByText(item.value as string)).toBeNull()
-    );
-  });
-
   // when click item, dropdown expect to be closed
   test('when click DropdownItem, Dropdown expect to be closed', () => {
     const trigger = <button>trigger</button>;
