@@ -79,16 +79,6 @@ const Dropdown = <T extends Item>({
 
           trigger.props.onFocus?.(e);
         },
-        onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
-          // INPUT element에 대해서만 적용
-          if (e.target.tagName !== 'INPUT') return;
-
-          if (items?.length) {
-            close();
-          }
-
-          trigger.props.onBlur?.(e);
-        },
       })
     : trigger;
 
