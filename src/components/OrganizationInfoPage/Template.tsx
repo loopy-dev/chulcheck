@@ -15,6 +15,8 @@ const Template = () => {
   const { id } = useParams();
   const { organization, getOrganizationDetail, joinOrganization } =
     useOrganization();
+  const { organizations: joinedOrganizations, getJoinedOrganizations } =
+    useOrganization();
   const [loading, startTransition] = useLoading();
   const navigate = useNavigate();
 
@@ -26,6 +28,24 @@ const Template = () => {
       window.alert('가입에 실패하였습니다.');
     }
   };
+
+  const hasUserJoined = () => {
+    return !!joinedOrganizations.find(
+      (joined) => organization && joined.id === organization.id
+    );
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await getJoinedOrganizations();
+      } catch {
+        console.error('something error while fetching joinedOrganizations.');
+      }
+    };
+
+    fetchData();
+  }, [getJoinedOrganizations]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,12 +89,13 @@ const Template = () => {
           <div>
             <Button
               fullWidth
+              disabled={hasUserJoined()}
               isLoading={loading}
               size="lg"
               variant="primary"
               onClick={handleClick}
             >
-              가입하기
+              {hasUserJoined() ? '이미 가입되어 있습니다.' : '가입하기'}
             </Button>
           </div>
         </Container>
